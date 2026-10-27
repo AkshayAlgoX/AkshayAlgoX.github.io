@@ -92,6 +92,7 @@ footer{margin-top:52px;padding-top:24px;border-top:1px solid var(--line);color:v
     <a href="https://linkedin.com/in/akshaya-r-a381873a4">LinkedIn</a>
     <a href="https://leetcode.com/u/rakshay5764/">LeetCode</a>
     <a href="https://gumora.shop/">Gumora (live)</a>
+    <a href="https://due-deligence-platform.vercel.app/">Due Diligence Agent (live)</a>
   </nav>
 </header>
 
@@ -112,8 +113,16 @@ footer{margin-top:52px;padding-top:24px;border-top:1px solid var(--line);color:v
       <a class="tag ok" href="https://leetcode.com/u/rakshay5764/">View profile</a>
     </div>
     <div class="row">
+      <div><div class="claim">SettleMate AI: 98.1% accuracy on its reconciliation benchmark</div><div class="ctx">Built for the Razorpay Buildathon. Benchmarks and test suites are in the repo.</div></div>
+      <a class="tag ok" href="https://github.com/AkshayAlgoX/settlemate-ai">View results</a>
+    </div>
+    <div class="row">
       <div><div class="claim">Gumora runs in production</div><div class="ctx">Public marketplace, live today</div></div>
       <a class="tag ok" href="https://gumora.shop/">Open gumora.shop</a>
+    </div>
+    <div class="row">
+      <div><div class="claim">Due Diligence Agent is deployed</div><div class="ctx">Vercel frontend, AWS EC2 backend, Neon PostgreSQL</div></div>
+      <a class="tag ok" href="https://due-deligence-platform.vercel.app/">Open live app</a>
     </div>
   </div>
 </section>
@@ -124,10 +133,12 @@ footer{margin-top:52px;padding-top:24px;border-top:1px solid var(--line);color:v
 
   <article class="proj">
     <h3>SettleMate AI</h3>
-    <p class="why">A financial reconciliation engine where an optimizer makes the decisions and AI only explains them, so money logic stays reproducible and auditable.</p>
+    <p class="why">A financial reconciliation engine, built for the Razorpay Buildathon, where deterministic systems make the decisions and AI only investigates and explains, so money logic stays reproducible and auditable.</p>
     <ul>
-      <li>Settlement decisions computed deterministically with Google OR-Tools</li>
-      <li>AI explanation layer on top of the solver's output, never in place of it</li>
+      <li>98.1% accuracy, 98% precision and recall on the project's reconciliation benchmark</li>
+      <li>About 1,246 records/sec at 10,000 records, single-threaded</li>
+      <li>N:M matching with Google OR-Tools, integer-only money arithmetic</li>
+      <li>96/96 test suites passing, 200,000 fuzz iterations</li>
     </ul>
     <p class="stack">TypeScript, Next.js, Node.js, PostgreSQL, Prisma, Google OR-Tools</p>
     <div class="links"><a href="https://github.com/AkshayAlgoX/settlemate-ai">Source code</a></div>
@@ -146,14 +157,16 @@ footer{margin-top:52px;padding-top:24px;border-top:1px solid var(--line);color:v
   </article>
 
   <article class="proj">
-    <h3>Real Estate Due Diligence Platform</h3>
-    <p class="why">A team-built backend for property verification workflows, with role-based access control. I led the engineering team.</p>
+    <h3>Real Estate Due Diligence Agent <span class="live">· Live</span></h3>
+    <p class="why">Property buyers in India enter an address, and an AI agent gathers data from multiple sources, scores six risk categories, and returns a Buy, Negotiate or Avoid verdict.</p>
     <ul>
-      <li>Role-based security across user types</li>
-      <li>Spring Boot backend services</li>
+      <li>Spring Boot backend with JWT and OAuth2 security and Bucket4j rate limiting</li>
+      <li>LLM analysis with Llama 3.3 70B via Groq</li>
+      <li>Deployed across three platforms: Vercel frontend, AWS EC2 backend, Neon PostgreSQL</li>
+      <li>Docker Compose and GitHub Actions CI</li>
     </ul>
-    <p class="stack">Java, Spring Boot</p>
-    <div class="links"><a href="https://github.com/AkshayAlgoX/due-deligence-platform">Source code</a></div>
+    <p class="stack">Next.js, React, Java, Spring Boot, PostgreSQL (Neon), AWS EC2, Vercel</p>
+    <div class="links"><a href="https://due-deligence-platform.vercel.app/">Open live app</a><a href="https://github.com/AkshayAlgoX/due-deligence-platform">Source code</a></div>
   </article>
 </section>
 
