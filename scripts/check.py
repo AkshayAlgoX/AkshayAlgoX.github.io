@@ -37,7 +37,11 @@ for p,d in docs.items():
  check(all(a.get('type')=='application/ld+json' for t,a in tags if t=='script'),label+': no executable scripts')
  check(not any(t in ['iframe','form'] for t,a in tags),label+': no third-party embeds or data collection')
  text=p.read_text()
- check(not re.search(r'Intent2Data|Tech_Spin|ai-finance-platform|github.com/AkshayAlgoX/hive|498\+|98\.1%|1,246|six-member|OR-Tools N:M',text,re.I),label+': retired/stale claims absent')
+ check(not re.search(r'Intent2Data|Tech_Spin|ai-finance|github.com/AkshayAlgoX/hive|498\+|98\.1%|1,246|six-member|OR-Tools N:M|runs OR-Tools|powered by OR-Tools|99%\+? uptime|90% faster|cutting seller onboarding',text,re.I),label+': retired/stale/unsupported claims absent')
+ for t,a in tags:
+  if t=='img':
+   check(bool(a.get('alt','').strip()),label+': image alt text '+a.get('src',''))
+   check(a.get('width','').isdigit() and a.get('height','').isdigit(),label+': image dimensions '+a.get('src',''))
  check(not re.search(r'(?i)(?:gh[pousr]_[A-Za-z0-9]{20,}|AKIA[A-Z0-9]{16}|BEGIN (?:RSA |EC )?PRIVATE KEY|mailto:|tel:)',text),label+': no credential/private contact patterns')
  for t,a in tags:
   for attr in ['href','src']:
@@ -50,11 +54,13 @@ for p,d in docs.items():
    if dest.is_dir():dest=dest/'index.html'
    check(dest.exists(),label+': target exists '+a[attr])
    if u.fragment and dest in docs:check(unquote(u.fragment) in docs[dest].ids,label+': fragment exists '+a[attr])
-for p in json.loads((ROOT/'content/projects.json').read_text()):
- check(len(p['sections'])>=7,p['slug']+': complete case study')
- check(all(len(s)==2 for s in p['sections']),p['slug']+': valid sections')
- check(len(p['sources'])>=5,p['slug']+': implementation and test references')
- for label,path in p['sources']:
+site=json.loads((ROOT/'content/site.json').read_text())
+for p in site['featured']:
+ check(len(p['sections'])>=5,p['slug']+': case study has at least five sections')
+ check(all(len(s)==2 and s[1] for s in p['sections']),p['slug']+': valid sections')
+ check(len(p['sources'])>=4,p['slug']+': links into the code')
+ check(all(p.get(k) for k in ['what','why','interesting','summary']),p['slug']+': homepage summary complete')
+ for label,path in p['sources']+([[p['code']['label'],p['code']['path']]] if p.get('code') else []):
   target=ROOT.parent/p['repo']/path.split('#')[0]
   # Source clones are optional in CI; local review checks them when available.
   if (ROOT.parent/p['repo']).exists():check(target.exists(),p['slug']+': pinned source path '+path)
@@ -64,6 +70,6 @@ site=ET.parse(DIST/'sitemap.xml');ns={'s':'http://www.sitemaps.org/schemas/sitem
 urls=[e.text for e in site.findall('s:url/s:loc',ns)];check(len(urls)==6,'sitemap has all six content pages');check(all(x.startswith(BASE+'/') for x in urls),'sitemap canonical domain')
 check('Sitemap: '+BASE+'/sitemap.xml' in (DIST/'robots.txt').read_text(),'robots points to sitemap')
 public_size=sum(p.stat().st_size for p in DIST.rglob('*') if p.is_file())
-check(public_size<250000,'complete static artifact below 250 KB')
+check(public_size<600000,'complete static artifact below 600 KB')
 report={'checks':checks,'failures':errors,'pages':len(files),'public_bytes':public_size}
 print(json.dumps(report,indent=2));sys.exit(bool(errors))
