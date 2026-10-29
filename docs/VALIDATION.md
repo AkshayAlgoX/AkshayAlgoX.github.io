@@ -19,5 +19,5 @@ None of these runs reported a failing accessibility audit.
 - **Keyboard.** The skip link works, the tab order is logical, and every focused control (54 stops on the home page, 20 on a case study) shows a visible outline.
 - **Arrows.** No page contains Unicode arrow characters; `check.py` enforces this. The only directional icon is one inline SVG chevron, used on "All projects" and next-project links. It has `aria-hidden="true"` and `focusable="false"`.
 - **Links.** All 59 external links were checked. 57 return 200. LinkedIn returns 999 and LeetCode returns 403 to automated requests (bot blocking), so they were not verified by this check.
-- **`scripts/check.py`.** 522 assertions, 0 failures.
+- **`scripts/check.py`.** 520 assertions, 0 failures.
 - **Size.** The public artifact (pages, CSS, images and social preview) is about 388 KB.

@@ -2,7 +2,7 @@
   "profile": {
     "name": "Akshaya R",
     "lead": "I build AI and ML systems where the output has to hold up: entity-resolution pipelines, LLM features with checks around them, and the backends they run on.",
-    "intro": "I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I build with AI coding agents every day, and my part of that loop is framing the problem, reviewing what comes back and testing it until it works.",
+    "intro": "I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I build with AI coding agents, and my part of that loop is framing the problem, reviewing what comes back and testing it until it works.",
     "achievement": {
       "label": "HackerRank Orchestrate · Sept 2026",
       "value": "#85 of 3,062",
@@ -15,8 +15,8 @@
   },
   "about": [
     "I’m studying for a B.E. in Computer Science and Engineering at BGS College of Engineering and Technology in Bengaluru (2023–2027, CGPA 8.49), and I’m working toward AI and machine learning engineering roles.",
-    "The work I’ve learned the most from is applied ML under real constraints: an entity-resolution pipeline for the Amazon ML Challenge that had to fit Kaggle’s time and memory limits, and a glucose forecaster that combines a physiology model with a trained network. I’ve also built LLM features into products, always with code that checks what the model says before anything depends on it.",
-    "I build with AI coding agents such as Claude Code. That doesn’t mean accepting whatever they write: I break the work into steps I can check, review the changes, run the tests and send back what doesn’t hold up. HackerRank Orchestrate is built around exactly this: entries are developed with AI agents, and every session is logged."
+    "The work I’ve learned the most from is applied ML under real constraints. For the Amazon ML Challenge, my team built an entity-resolution pipeline that had to fit Kaggle’s time and memory limits; I led the shared harness and candidate retrieval. With a teammate, I built a glucose forecaster that pairs a physiology model with a trained network; my part was mostly the backend that serves its forecasts. I’ve also built LLM features into products, always with code that checks what the model says before anything depends on it.",
+    "I build with AI coding agents such as Claude Code. That doesn’t mean accepting whatever they write: I break the work into steps I can check, review the changes, run the tests and send back what doesn’t hold up. My October 2026 HackerRank Orchestrate entry was built this way, with its agent sessions logged."
   ],
   "experience": [
     {
@@ -670,7 +670,7 @@
   "capabilities": [
     {
       "title": "Applied ML and evaluation",
-      "text": "Entity resolution scored with macro F0.5, with shared folds and an experiment log so teammates’ results were comparable. A glucose forecaster checked on a locked, preregistered evaluation against a persistence baseline.",
+      "text": "Entity resolution scored with macro F0.5, with shared folds and an experiment log so teammates’ results were comparable. A team-built glucose forecaster checked on a locked, preregistered evaluation against a persistence baseline.",
       "seen": [
         [
           "Amazon ML Challenge",
@@ -716,12 +716,8 @@
     },
     {
       "title": "AI-assisted engineering",
-      "text": "Planning work for coding agents, reviewing their diffs, catching defects and keeping the history honest. Both HackerRank Orchestrate entries were built this way, under rules that require logging every agent session.",
+      "text": "Planning work for coding agents, reviewing their diffs, catching defects and keeping the history honest. My October 2026 HackerRank Orchestrate entry was built this way, with its agent sessions logged.",
       "seen": [
-        [
-          "Buy or Wait",
-          "/projects/buy-or-wait/"
-        ],
         [
           "Ghost Data",
           "#ghost-data"
