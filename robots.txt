@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://akshayalgox.github.io/sitemap.xml

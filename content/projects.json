@@ -1,0 +1,467 @@
+[
+  {
+    "slug": "buy-or-wait",
+    "title": "Buy or Wait?",
+    "kicker": "01 / Deterministic decision systems",
+    "repo": "hackerrank-orchestrate-september26-akshay",
+    "sha": "ac9ef6cc4906b31b1d4c0a4c90cbea93cead4663",
+    "category": "Python · Decimal · Constraint modeling",
+    "summary": "A financial decision engine that separates untrusted evidence from the authority to move money.",
+    "role": "Individual competition submission. The repository credits Akshaya R as its author.",
+    "status": "Competition artifact · runs locally",
+    "result": "#85 of 3,062",
+    "result_label": "Individual global rank · September 2026",
+    "score": "68.2 / 100",
+    "flow": [
+      [
+        "01",
+        "Extract",
+        "Messages + receipts"
+      ],
+      [
+        "02",
+        "Validate",
+        "Closed evidence schema"
+      ],
+      [
+        "03",
+        "Simulate",
+        "Daily cash headroom"
+      ],
+      [
+        "04",
+        "Decide",
+        "Plan + decision proof"
+      ]
+    ],
+    "sections": [
+      [
+        "The problem",
+        "A purchase can fit today's balance and still make next month's rent unaffordable. This offline competition engine reconstructs cash states, forecasts commitments and compares payment plans against a minimum-balance constraint. The interesting problem is temporal: affordability must hold across the modeled forecast, rather than at a single instant."
+      ],
+      [
+        "My contribution",
+        "I developed the individual Buy or Wait? submission: the cash-state ledger, deterministic planning pipeline and reproducible output artifacts. The linked repository records the implementation, competition artifacts and subsequent review fixes. Its current test documentation is broader than the original competition result; these are different kinds of evidence."
+      ],
+      [
+        "Where financial authority lives",
+        "Messages and receipt extractions pass through a closed typed evidence schema before reaching the ledger. An optional model can extract facts, but cannot directly set a balance, change an exchange rate or rank payment plans. Missing debit amounts trigger a conservative failure rather than silently becoming zero. Pending debits are reserved; pending credits and unrealized investments do not become spendable cash."
+      ],
+      [
+        "The key algorithm",
+        "The forecast computes daily balances using Python Decimal. A suffix minimum answers how much can be paid on a day while preserving the minimum balance on every later modeled day. Full-payment, wait, two-payment and supplied installment candidates then pass a hard completion-deadline gate. Remaining plans are ranked by spending changes, total cost, start date and payment count. This makes the recommendation explainable through an actual bottleneck day."
+      ],
+      [
+        "Architecture and tradeoff",
+        "The pipeline moves from extraction to validation, ledger reconstruction, forecast, plan search and machine-readable proof. Outputs use sibling temporary files and atomic replacement; code fingerprints bind a recorded run to its implementation. The final submitted run reports zero live model calls, using offline rules and cached image extractions. That makes this run reproducible without a model provider, but does not establish general receipt-understanding capability."
+      ],
+      [
+        "How it is checked",
+        "The repository records 847 passing unit tests and four strict expected failures, plus 15 adversarial cases. These are historical repository results, not a new execution of that suite for this portfolio. The linked verification summary describes the commands, five output-validator warnings and the sample disagreements. Official result captures show rank #85 of 3,062 and score 68.2/100; the live contest portal may require authentication."
+      ],
+      [
+        "Failure modes and limits",
+        "The balance invariant applies to recognized events inside a finite calendar horizon. The recurrence estimator can miss irregular spending. Four sample divergences remain documented, including conservative spending estimates and different safe-payment dates. A competition score measures performance on that challenge; this is not a live banking integration or financial-advice service."
+      ]
+    ],
+    "sources": [
+      [
+        "Cash-state ledger",
+        "code/buyorwait/ledger.py"
+      ],
+      [
+        "Suffix-minimum forecast",
+        "code/buyorwait/forecast.py"
+      ],
+      [
+        "Plan generation and ranking",
+        "code/buyorwait/planning.py"
+      ],
+      [
+        "Typed evidence boundary",
+        "code/buyorwait/evidence.py"
+      ],
+      [
+        "Recorded tests and caveats",
+        "docs/TEST_VERIFICATION_SUMMARY.md"
+      ],
+      [
+        "Official result capture",
+        "docs/assets/hackerrank_orchestrate_result_banner.png"
+      ],
+      [
+        "Recorded final-run usage",
+        "code/evaluation/usage_report.md"
+      ]
+    ]
+  },
+  {
+    "slug": "gumora",
+    "title": "Gumora",
+    "kicker": "02 / Full-stack commerce",
+    "repo": "Gumora-SaaS-Platform",
+    "sha": "aecfb523bb9b76e3f0f7202cf102c0f9fe1fb70d",
+    "category": "Next.js · Express · MongoDB · Cashfree",
+    "summary": "A creator marketplace whose payment settlement must stay correct when callbacks repeat, race or never arrive.",
+    "role": "Project author. This case study describes the current repository, including review-driven hardening; it does not claim sole authorship of every patch.",
+    "status": "Frontend reachable · API suspended",
+    "result": "One settlement path",
+    "result_label": "Confirmation · webhook · reconciliation",
+    "flow": [
+      [
+        "01",
+        "Receive",
+        "Return / webhook / sweep"
+      ],
+      [
+        "02",
+        "Verify",
+        "Cashfree order + amount"
+      ],
+      [
+        "03",
+        "Commit",
+        "One MongoDB transaction"
+      ],
+      [
+        "04",
+        "Unlock",
+        "Authenticated library"
+      ]
+    ],
+    "sections": [
+      [
+        "The problem",
+        "Creators need product listings, imports, checkout and a buyer library. The difficult boundary is payment completion: a browser redirect is not proof that money settled. A buyer may close the tab, a gateway may retry a callback and two workers may confirm the same order concurrently. The marketplace needs one durable state change across all three entry points."
+      ],
+      [
+        "My contribution",
+        "I built Gumora as a full-stack creator marketplace with a decoupled Next.js client and Express API, MongoDB persistence, session authentication, Cashfree checkout and AI-assisted imports. The current public branch also contains subsequent review-driven reliability and security improvements. The source links below identify that current implementation rather than treating every hardening change as an original competition or commercial achievement."
+      ],
+      [
+        "The important invariant",
+        "The pending-to-paid transition and product sold-count increment happen in the same MongoDB transaction. The conditional pending-state update means a duplicate confirmation observes an already-settled order. A crash cannot commit the order without the sales update. The service checks for transaction support and refuses settlement on a standalone MongoDB server instead of falling back to two unsafe writes."
+      ],
+      [
+        "One authority, several triggers",
+        "Buyer confirmation, signature-verified webhooks and a reconciliation sweep call the same settlement service. The gateway payload identifies an order, while the backend fetches authoritative status from Cashfree and checks provider order ID, PAID status, currency and the exact minor-unit amount. This handles the buyer who never returns without trusting client-side success flags."
+      ],
+      [
+        "Security at adjacent boundaries",
+        "The API sets HttpOnly, Secure session cookies, but the reviewed default branch still has an authenticated /token route that returns the JWT and a refresh route accepting a token in the request body. A cookie-only session-security claim would therefore be inaccurate. This is an unresolved boundary in the published source, not a fix claimed by this case study. Separately, image imports use a public-address-only fetcher, revalidate redirects and cap streamed downloads before image inspection."
+      ],
+      [
+        "How it is checked",
+        "Settlement integration tests use a real MongoDB replica set and exercise concurrent confirmations, rollback and duplicate settlement. Separate standalone-server tests cover refusal when transactions are unavailable. Playwright tests isolate external services with mocks, so they check the application flow without charging a payment method. These linked tests are repository evidence; no real payment was performed for this portfolio."
+      ],
+      [
+        "Deployment and remaining limits",
+        "On 29 October 2026, the storefront returned HTTP 200, but the API health endpoint returned HTTP 503 with Render's Service Suspended page. Sign-in, catalog, checkout and library therefore cannot be presented as a working live demo. Local evaluation requires configured services and transaction-capable MongoDB. Signature verification, database correctness and a mocked browser test do not establish successful live payment processing."
+      ]
+    ],
+    "sources": [
+      [
+        "Transactional settlement",
+        "backend/src/services/settlement.ts"
+      ],
+      [
+        "Payment lifecycle and outcomes",
+        "docs/payment-settlement.md"
+      ],
+      [
+        "Replica-set integration tests",
+        "backend/tests/settlement.integration.test.ts"
+      ],
+      [
+        "Standalone refusal tests",
+        "backend/tests/settlement.standalone.test.ts"
+      ],
+      [
+        "SSRF-guarded image fetcher",
+        "backend/src/lib/safeFetch.ts"
+      ],
+      [
+        "Session routes and remaining token exposure",
+        "backend/src/routes/auth.ts"
+      ],
+      [
+        "Mock-isolated browser tests",
+        "client/e2e/README.md"
+      ]
+    ]
+  },
+  {
+    "slug": "settlemate",
+    "title": "SettleMate AI",
+    "kicker": "03 / Reconciliation & optimization",
+    "repo": "settlemate-ai",
+    "sha": "7d655f6d902a72fde8379eaa7739ff5054234adc",
+    "category": "TypeScript · Next.js · PostgreSQL · HMAC",
+    "summary": "Exact integer-money matching, bounded search and receipts with an explicit cryptographic trust boundary.",
+    "role": "Project author. Current solver and security behavior includes subsequent review fixes, linked below.",
+    "status": "Source + local evaluation · hosted service suspended",
+    "result": "TypeScript search",
+    "result_label": "Active matching engine · branch-and-bound",
+    "flow": [
+      [
+        "01",
+        "Normalize",
+        "Integer minor units"
+      ],
+      [
+        "02",
+        "Search",
+        "Bounded subset matching"
+      ],
+      [
+        "03",
+        "Verify",
+        "Feasibility + consistency"
+      ],
+      [
+        "04",
+        "Seal",
+        "Keyed HMAC receipt"
+      ]
+    ],
+    "sections": [
+      [
+        "The problem",
+        "Financial reconciliation must distinguish a clean match from an uncertain explanation. An invoice may be paid in a split or grouped settlement; an AI-generated plausible story cannot make an incorrect total correct. SettleMate places matching and validation in deterministic code, then uses AI for advisory exception investigation."
+      ],
+      [
+        "My contribution",
+        "I developed the SettleMate reconciliation application and its separation between deterministic financial decisions and AI-assisted investigation. The current repository contains later solver-reference checks and signing-key hardening. The case study points directly to these implementations and records their boundaries rather than using a generic claim of autonomous financial correctness."
+      ],
+      [
+        "The active matching engine",
+        "Despite the historical CP-SAT class name, the application calls an exact TypeScript branch-and-bound search, not the separate Python OR-Tools service. It minimizes amount difference times 1,000 plus invoice count, subject to tolerance and cardinality constraints. Amounts are validated integer minor units. Search order is fixed by amount and ID, but a wall-clock timeout can vary with machine speed."
+      ],
+      [
+        "Bounded computation changes the claim",
+        "The policy searches at most 50 eligible candidates and normally at most eight invoices per split. Dropping candidates downgrades a found result to FEASIBLE, because it cannot establish optimality over the original request. The synchronous search can block the Node.js event loop up to its time ceiling. A feasibility verifier checks identifiers, tenant boundaries, totals and policy constraints; it does not independently prove optimality."
+      ],
+      [
+        "Receipts and proof artifacts",
+        "Canonicalized decisions are hashed and authenticated with HMAC-SHA256. HMAC verification requires the appropriate secret key material; these are not public-key signatures that any visitor can independently verify. Key versions and rotation govern which receipts can be trusted. Separately, integer invariant checks emit SMT-LIB scripts. External Z3 runs cross-check those concrete scripts; Z3 is not always executing inside the application and the artifact is not a theorem over every possible input."
+      ],
+      [
+        "How it is checked",
+        "The repository records 3,000 seeded cases compared with exhaustive subset enumeration and an OR-Tools model of the same policy. The test also corrupts totals, IDs and objectives to check verifier rejection. A separate recorded 2,000-case external Z3 comparison checks agreement between integer evaluation and exported scripts. These are bounded reference comparisons reported in the repository, not independent certification or tests rerun during this portfolio build."
+      ],
+      [
+        "Deployment and remaining limits",
+        "The Render URL returned HTTP 503 with Service Suspended on 29 October 2026. The case study therefore links source and local setup instead of advertising a working demo. Old accuracy, memory and throughput headlines are omitted here: meaningful performance comparisons need a named dataset, workload, environment and method. Timeout-dependent replay and candidate truncation remain explicit limitations."
+      ]
+    ],
+    "sources": [
+      [
+        "Actual TypeScript matching engine",
+        "src/lib/solver/cpsat-engine.ts"
+      ],
+      [
+        "Solver and proof boundaries",
+        "docs/solver-and-proof-verification.md"
+      ],
+      [
+        "Brute-force differential tests",
+        "tests/solver-reference-differential.test.ts"
+      ],
+      [
+        "OR-Tools reference comparison",
+        "scripts/solver_differential.py"
+      ],
+      [
+        "HMAC signing and key versions",
+        "src/lib/receipts/signer.ts"
+      ],
+      [
+        "Signing-key security tests",
+        "tests/receipt-signer-security.test.ts"
+      ],
+      [
+        "External Z3 cross-check",
+        "scripts/smt_z3_differential.py"
+      ]
+    ]
+  },
+  {
+    "slug": "amazon-ml",
+    "title": "Amazon ML Challenge",
+    "kicker": "04 / Applied ML infrastructure",
+    "repo": "amlc26-harness",
+    "sha": "597d1592178737af42952a09ac1d9e7ef5b37f36",
+    "category": "Python · Evaluation contracts · Entity resolution",
+    "summary": "A reproducible harness alongside specialized entity-resolution experiments, with the boundary between them made explicit.",
+    "role": "Team Duty_Drive. Repository-documented role: systems, harness and retrieval lead; captain of the ein track.",
+    "status": "Public harness · competition data not redistributed",
+    "result": "#1,200",
+    "result_label": "Displayed public leaderboard rank · Team Duty_Drive",
+    "score": "0.978758",
+    "flow": [
+      [
+        "01",
+        "Contract",
+        "Folds + experiment IDs"
+      ],
+      [
+        "02",
+        "Retrieve",
+        "Candidate generation"
+      ],
+      [
+        "03",
+        "Evaluate",
+        "Metric + validation"
+      ],
+      [
+        "04",
+        "Submit",
+        "Competition-only data"
+      ]
+    ],
+    "sections": [
+      [
+        "The problem",
+        "Entity resolution links noisy records that refer to the same business across different sources. Candidate generation must retain useful matches without making expensive pairwise comparison unbounded. Evaluation must also match the real scoring rule: a generic classifier accuracy number can hide harmful false-positive links."
+      ],
+      [
+        "My contribution and team context",
+        "The repository credits me with systems, harness and retrieval work and the ein track within Team Duty_Drive. This was a team submission, not an individual ranking. The team README retains contributor attribution. This portfolio avoids republishing teammate screenshots or private registration information and does not imply that I alone developed every modeling component."
+      ],
+      [
+        "Two different reproducibility surfaces",
+        "The default branch supplies the general harness: fold contracts, general metrics, experiment registration, unit tests and a synthetic end-to-end pipeline. Specialized entity-resolution code lives on dedicated competition branches. Full cloud inference depended on non-redistributable tournament data and cloud execution. Running the public synthetic pipeline therefore does not reproduce the competition score."
+      ],
+      [
+        "Why metric design matters",
+        "The specialized entity-resolution metric is entity-level macro F0.5. Its false-positive coefficient is four times its false-negative coefficient, so abstention and precision deserve explicit treatment. The default branch's general metric library should not be mistaken for that specialized metric. The README links the exact competition-branch implementation rather than pretending the complete system is on main."
+      ],
+      [
+        "Architecture and operational tradeoffs",
+        "The documented competition design moves through normalization, multi-lane candidate blocking, early pruning, richer features and reranking, then conflict resolution. Country-partitioned shards bound cloud execution. This is useful evidence of experiment and inference engineering, but the portfolio makes no unverified peak-memory or speed claim and does not treat the synthetic baseline as a benchmark of the specialized retriever."
+      ],
+      [
+        "How it is checked",
+        "The public README records 18 core-harness tests and a synthetic smoke workflow. A separate competition-branch suite covers the specialized metric and entity-resolution contracts. These scopes remain separate. The recorded team result is displayed public leaderboard rank #1,200 and score 0.978758. Its Unstop result page is not publicly linkable; the account-owned repository reports the result and private evidence can be shown on request."
+      ],
+      [
+        "Limits of the result",
+        "There is no verified participant denominator, percentile, prize or final private-leaderboard position on this page. The rank and score are the previously verified displayed public result, now documented in the repository; they were not reauthenticated on Unstop during this portfolio review. The public code demonstrates harness contracts and synthetic reproducibility, not a turnkey rerun of the cloud competition submission."
+      ]
+    ],
+    "sources": [
+      [
+        "Scope, team result and reproducibility tiers",
+        "README.md"
+      ],
+      [
+        "General harness implementation",
+        "src"
+      ],
+      [
+        "Core-harness tests",
+        "tests"
+      ],
+      [
+        "Synthetic smoke pipeline",
+        "scripts/smoke_test.sh"
+      ],
+      [
+        "Synthetic data generator",
+        "scripts/make_synthetic.py"
+      ],
+      [
+        "Reproduction commands",
+        "Makefile"
+      ]
+    ]
+  },
+  {
+    "slug": "due-diligence",
+    "title": "Real Estate Due Diligence",
+    "kicker": "05 / Collaborative full-stack engineering",
+    "repo": "due-deligence-platform",
+    "sha": "131385af8ac94a17cb9ac040212d04fad6e0a933",
+    "category": "Java · Spring Boot · Next.js · PostgreSQL",
+    "summary": "A team-built property analysis workflow with risk scoring, protected reports and concurrency-sensitive notifications.",
+    "role": "Infosys Springboard Team 03 lead, as recorded in the project README. Shared delivery; no exact team-size claim.",
+    "status": "Frontend reachable · end-to-end backend unverified",
+    "result": "Shared delivery",
+    "result_label": "Backend architecture · authentication · risk scoring",
+    "flow": [
+      [
+        "01",
+        "Aggregate",
+        "Property data services"
+      ],
+      [
+        "02",
+        "Assess",
+        "Six risk categories"
+      ],
+      [
+        "03",
+        "Authorize",
+        "Owner / admin checks"
+      ],
+      [
+        "04",
+        "Deliver",
+        "Report + notification"
+      ]
+    ],
+    "sections": [
+      [
+        "The problem",
+        "A property assessment combines heterogeneous records, risk scoring, generated explanations and downloadable reports. The engineering challenge is to make those parts cooperate while respecting ownership: an attractive report export must never bypass the authorization applied to the underlying report."
+      ],
+      [
+        "My contribution and shared ownership",
+        "The account-owned project README identifies me as Team 03 lead and attributes backend architecture, Spring Security/JWT authentication, service aggregation, six-category scoring and deployment orchestration to me. These are repository-documented contributions, not an independently verified employment certificate. The complete application is collaborative. Team membership counts conflict across older materials, so this page does not give a precise team size."
+      ],
+      [
+        "Architecture and data flow",
+        "A Next.js frontend calls Spring Boot controllers and services backed by PostgreSQL. The aggregation layer assembles property context; a weighted risk engine evaluates six categories; AI-assisted explanation and report generation consume that context. Controller, service and repository boundaries keep persistence separate from scoring and delivery. Generated conclusions depend on the completeness and quality of upstream data."
+      ],
+      [
+        "Authorization must survive export",
+        "Report PDF and Excel endpoints check ownership or administrator access rather than treating a report ID as permission. Property snapshot exports resolve the caller's latest report. The useful evidence is in the controller tests: another user's report, missing resources and allowed ownership paths need distinct behavior. AI text cannot replace these server-side checks."
+      ],
+      [
+        "A concurrency problem behind a small feature",
+        "Notification preferences may be created for the first time while report completion and the email listener race. PostgreSQL concurrency tests use latches and Testcontainers to reproduce that boundary. The documented checks cover one in-app notification and one email after commit, rollback behavior and SMTP failures. These later review fixes belong to the shared current codebase, rather than a claim that I personally authored every patch."
+      ],
+      [
+        "How it is checked",
+        "The repository contains JUnit service/controller tests, an H2 end-to-end workflow, PostgreSQL Testcontainers concurrency tests and frontend tests. Docker-dependent integration checks can be skipped when Docker is absent, so a generic green unit-test badge is insufficient evidence that the race ran. This portfolio links the relevant test files and does not claim to have rerun the application suite."
+      ],
+      [
+        "Deployment and limitations",
+        "The Vercel frontend returned HTTP 200 on 29 October 2026. The repository documents its historical AWS backend as offline; this review did not establish a functioning current backend, so the site offers no working-demo claim. The product is a software project, not a substitute for professional property due diligence. The contributor record, including NalamothuLokesh, is preserved through direct attribution below."
+      ]
+    ],
+    "sources": [
+      [
+        "Team and contribution record",
+        "README.md#authorship--project-attribution"
+      ],
+      [
+        "Risk-scoring implementation",
+        "backend/src/main/java/com/realestate/duediligence/service/impl/RiskAssessmentServiceImpl.java"
+      ],
+      [
+        "Report export authorization tests",
+        "backend/src/test/java/com/realestate/duediligence/controller/ExportControllerTest.java"
+      ],
+      [
+        "PostgreSQL notification concurrency tests",
+        "backend/src/test/java/com/realestate/duediligence/integration/NotificationPreferenceConcurrencyIT.java"
+      ],
+      [
+        "Local deployment guide",
+        "docs/DEPLOYMENT.md"
+      ]
+    ]
+  }
+]
