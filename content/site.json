@@ -1,0 +1,656 @@
+{
+  "profile": {
+    "name": "Akshaya R",
+    "lead": "I build backend and full-stack software, mostly the parts where a payment has to settle exactly once and the numbers have to add up.",
+    "intro": "I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I work mostly in TypeScript, Java and Python.",
+    "achievement": {
+      "label": "HackerRank Orchestrate · Sept 2026",
+      "value": "#85 of 3,062",
+      "href": "/projects/buy-or-wait/"
+    },
+    "github": "https://github.com/AkshayAlgoX",
+    "linkedin": "https://www.linkedin.com/in/akshaya-r-a381873a4/",
+    "leetcode": "https://leetcode.com/u/rakshay5764/",
+    "resume_url": null
+  },
+  "about": [
+    "I’m studying for a B.E. in Computer Science and Engineering at BGS College of Engineering and Technology in Bengaluru (2023–2027, CGPA 8.49).",
+    "Most of my projects end up at the same kind of problem: a checkout that must be safe to retry, a reconciliation that has to balance to the paisa, or an ML pipeline that has to fit a competition’s time and memory limits. Competitions such as HackerRank Orchestrate and the Amazon ML Challenge have been where I practise that under a deadline.",
+    "Outside competitions I build full-stack products end to end, from the database schema and API to the interface and the CI pipeline that tests them."
+  ],
+  "skills": [
+    [
+      "Languages",
+      "Java, TypeScript, JavaScript, Python, C++, SQL"
+    ],
+    [
+      "Backend",
+      "Spring Boot, Node.js, Express, Next.js, REST, JWT / OAuth2"
+    ],
+    [
+      "Data",
+      "PostgreSQL, MongoDB, Redis, SQLite, Prisma"
+    ],
+    [
+      "Practice",
+      "Docker, GitHub Actions, JUnit, Vitest, Playwright, pytest"
+    ]
+  ],
+  "experience": [
+    {
+      "org": "Veanka Innosol Pvt. Ltd.",
+      "role": "Software Engineer Intern",
+      "when": "Jul 2026 – present · Bengaluru",
+      "points": [
+        "Migrated a production React Native app from 0.80 to 0.86, working through the dependency conflicts and Gradle build failures the upgrade exposed.",
+        "Traced an infinite re-render bug in production back to its hook dependencies and fixed the cause.",
+        "Built offline-first state persistence and duration tracking for the TimeSheet module."
+      ],
+      "note": "Client work; the source is private."
+    },
+    {
+      "org": "Infosys Springboard",
+      "role": "Team Lead, Java Developer Intern (Virtual Internship 7.0)",
+      "when": "2026 · Team 03",
+      "points": [
+        "Led the team that built the Real Estate Due Diligence platform.",
+        "Owned the backend architecture, Spring Security / JWT authentication, the data-aggregation pipeline and the six-category risk scoring engine."
+      ],
+      "link": [
+        "Read the case study",
+        "/projects/due-diligence/"
+      ]
+    }
+  ],
+  "featured": [
+    {
+      "slug": "buy-or-wait",
+      "title": "Buy or Wait?",
+      "context": "HackerRank Orchestrate · September 2026 · individual",
+      "theme": "forest",
+      "repo": "hackerrank-orchestrate-september26-akshay",
+      "sha": "ac9ef6c",
+      "stack": [
+        "Python",
+        "Decimal",
+        "Constraint search"
+      ],
+      "badge": "Rank #85 of 3,062 · score 68.2 / 100",
+      "what": "A Python engine that decides whether a purchase should be paid now, split into payments, or postponed.",
+      "why": "A purchase can fit today’s balance and still make next month’s rent impossible.",
+      "interesting": "It projects every future day’s balance and uses a suffix minimum to find the earliest day a payment stays safe until the end of the forecast.",
+      "visual": {
+        "type": "image+figure",
+        "image": "orchestrate-result",
+        "alt": "HackerRank result banner: You finished #85 of 3,062, final score 68.2 out of 100",
+        "figure": "cashflow"
+      },
+      "status": null,
+      "summary": "A financial decision engine built for HackerRank Orchestrate (September 2026), ranked #85 of 3,062.",
+      "glance": [
+        [
+          "Role",
+          "Solo competition entry"
+        ],
+        [
+          "Result",
+          "#85 of 3,062 · 68.2 / 100"
+        ],
+        [
+          "Stack",
+          "Python standard library, Decimal"
+        ],
+        [
+          "Runs",
+          "Offline; no model calls in the final run"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "The challenge gave each person a stream of messages, receipts and bank events, and asked a simple-sounding question about a purchase: buy now, pay in parts, or wait?",
+            "The hard part is time. A purchase can fit comfortably in today’s balance and still push the account below its minimum two weeks later, when rent and a subscription renewal land on the same day."
+          ]
+        ],
+        [
+          "How it works",
+          [
+            "The pipeline extracts facts from the messages, validates them against a closed schema, reconstructs a ledger in Python `Decimal`, projects every future day’s balance, and then searches payment plans.",
+            "Extraction can only produce typed facts. It can’t set a balance or choose a plan. A missing debit amount stops the case instead of silently becoming zero, and pending credits never count as spendable money."
+          ]
+        ],
+        [
+          "The key idea: a suffix minimum",
+          [
+            "To pay an amount on day D, the balance must stay above the minimum on D and on every later day. So for each candidate day I compute the minimum projected balance from that day to the end of the forecast. The earliest day where that minimum covers the payment is the earliest safe day.",
+            "Full payment, waiting, two-part payment and any offered instalment plan are all checked this way. Plans that can’t finish before the deadline are dropped, and the rest are ranked by spending changes, total cost, start date and number of payments."
+          ]
+        ],
+        [
+          "Built to be re-run",
+          [
+            "Outputs are written to temporary files and atomically renamed, and each recorded run is fingerprinted against the code that produced it. The final submitted run made no live model calls; image receipts used cached extractions, so the result can be reproduced without an API key."
+          ]
+        ],
+        [
+          "Results",
+          [
+            "Final standing: individual rank #85 of 3,062, score 68.2 / 100. The repository now runs 846 tests (plus 1 skipped and 4 documented expected failures) from a clean clone; those tests were added and extended after the contest, so they describe the code today rather than the competition result."
+          ]
+        ],
+        [
+          "What I’d do next",
+          [
+            "The recurring-spend estimator is deliberately simple and misses irregular spending, and four sample cases still differ from the published answers, mostly where my plan is more cautious about the safe payment date. I’d like a proper probabilistic forecast for irregular spending before trusting it with real money."
+          ]
+        ]
+      ],
+      "code": {
+        "label": "code/buyorwait/forecast.py",
+        "path": "code/buyorwait/forecast.py",
+        "lang": "python",
+        "text": "def suffix_minimum(self, d: date) -> Decimal:\n    \"\"\"min balance over all t >= d (balance on d includes that day's flows).\"\"\"\n    m = self.balance_on(d)\n    for on, bal in self.points:\n        if on > d:\n            m = min(m, bal)\n    return m"
+      },
+      "sources": [
+        [
+          "Ledger reconstruction",
+          "code/buyorwait/ledger.py"
+        ],
+        [
+          "Daily forecast and suffix minimum",
+          "code/buyorwait/forecast.py"
+        ],
+        [
+          "Plan search and ranking",
+          "code/buyorwait/planning.py"
+        ],
+        [
+          "Evidence schema",
+          "code/buyorwait/evidence.py"
+        ],
+        [
+          "Test summary",
+          "docs/TEST_VERIFICATION_SUMMARY.md"
+        ],
+        [
+          "Result banner",
+          "docs/assets/hackerrank_orchestrate_result_banner.png"
+        ]
+      ]
+    },
+    {
+      "slug": "gumora",
+      "title": "Gumora",
+      "context": "Full-stack creator marketplace",
+      "theme": "plum",
+      "repo": "Gumora-SaaS-Platform",
+      "sha": "aecfb52",
+      "stack": [
+        "Next.js",
+        "Express",
+        "MongoDB",
+        "Cashfree"
+      ],
+      "badge": null,
+      "what": "A marketplace where creators sell digital products through Cashfree checkout and buyers download from a personal library.",
+      "why": "A “success” redirect isn’t proof that money moved, and confirmations can arrive twice.",
+      "interesting": "Settlement re-checks the order with Cashfree, then marks it paid and counts the sale in one MongoDB transaction, so a repeated confirmation changes nothing.",
+      "visual": {
+        "type": "image",
+        "image": "gumora-discover",
+        "alt": "Gumora Discover page: a grid of creator products with prices in rupees"
+      },
+      "status": "Storefront online at gumora.shop · API currently offline",
+      "summary": "A creator marketplace with Cashfree checkout whose settlement stays correct when confirmations repeat or race.",
+      "glance": [
+        [
+          "Role",
+          "Built it end to end"
+        ],
+        [
+          "Stack",
+          "Next.js, Express, TypeScript, MongoDB, Redis"
+        ],
+        [
+          "Payments",
+          "Cashfree (server-verified)"
+        ],
+        [
+          "Status",
+          "Storefront online · API offline"
+        ]
+      ],
+      "sections": [
+        [
+          "What it is",
+          [
+            "Gumora is a Gumroad-style marketplace. Creators publish digital products, can import a listing’s description and images from an existing page, and get paid through Cashfree. Buyers see their purchases in a library and download the files from there.",
+            "It’s a decoupled app: a Next.js client and an Express/TypeScript API on MongoDB, with Redis caching for the public catalogue."
+          ]
+        ],
+        [
+          "The hard part: knowing an order is paid",
+          [
+            "After checkout, Cashfree sends the buyer back to the site. That redirect is only a hint. The buyer might refresh it, open it in two tabs, or never come back at all. If “paid” were decided in the browser, or if marking the order and counting the sale were two separate writes, a retry could count one sale twice, or a crash could leave an order paid with no sale recorded."
+          ]
+        ],
+        [
+          "How settlement works",
+          [
+            "The API asks Cashfree for the order and accepts it only if the order id, status, currency and amount (compared in paise, not floats) all match. Then, inside one MongoDB transaction, it moves the order from pending to paid and increments the product’s sales count.",
+            "The update only matches an order that is still pending, so a second confirmation sees an already-paid order and returns without touching the count. If the database can’t run transactions (a standalone MongoDB server), settlement refuses to run rather than falling back to two unsafe writes."
+          ]
+        ],
+        [
+          "Other pieces worth a look",
+          [
+            "Product import fetches images through a guarded fetcher that only reaches public addresses, re-checks every redirect and caps the download size, so a creator can’t point the server at internal services.",
+            "The browser tests run against a production build with every API call mocked, so the CI pipeline can check sign-in, the catalogue and route protection without real payments."
+          ]
+        ],
+        [
+          "Testing",
+          [
+            "Settlement is tested against a real MongoDB replica set started by the test suite, including concurrent confirmations of the same order, rolled-back transactions and injected server failures. A separate suite checks that a standalone server is refused."
+          ]
+        ],
+        [
+          "Where it stands",
+          [
+            "The storefront at gumora.shop is online, but the API host is currently suspended, so sign-in and checkout don’t work on the live site; the full flow runs locally with a replica-set MongoDB.",
+            "Two improvements are written but not yet on the main branch: a signature-verified Cashfree webhook with a reconciliation sweep (for buyers who never return), and moving the session token fully out of browser JavaScript. The main branch still exposes a token endpoint that those changes remove."
+          ]
+        ]
+      ],
+      "code": {
+        "label": "backend/src/services/settlement.ts",
+        "path": "backend/src/services/settlement.ts",
+        "lang": "typescript",
+        "text": "// Runs inside session.withTransaction(...)\nconst transitioned = await Order.findOneAndUpdate(\n  { _id: orderObjectId, status: \"pending\" },\n  { $set: { status: \"paid\", paidAt: new Date() } },\n  { new: true, session }\n).lean();\n\nif (!transitioned) return alreadySettledOrInvalid();\n\nawait Product.updateOne(\n  { _id: productId },\n  { $inc: { \"stats.soldCount\": 1 } },\n  { session }\n);"
+      },
+      "code_note": "Excerpt, lightly condensed: the not-pending branch is summarised as one call.",
+      "live": "https://www.gumora.shop",
+      "sources": [
+        [
+          "Settlement service",
+          "backend/src/services/settlement.ts"
+        ],
+        [
+          "Replica-set settlement tests",
+          "backend/tests/settlement.integration.test.ts"
+        ],
+        [
+          "Guarded image fetcher",
+          "backend/src/lib/safeFetch.ts"
+        ],
+        [
+          "Mocked browser tests",
+          "client/e2e/mocked"
+        ],
+        [
+          "Settlement design notes",
+          "docs/payment-settlement.md"
+        ]
+      ]
+    },
+    {
+      "slug": "settlemate",
+      "title": "SettleMate AI",
+      "context": "Financial reconciliation · Razorpay Track 04 challenge",
+      "theme": "ink",
+      "repo": "settlemate-ai",
+      "sha": "7d655f6",
+      "stack": [
+        "TypeScript",
+        "Next.js",
+        "PostgreSQL",
+        "Prisma"
+      ],
+      "badge": null,
+      "what": "A reconciliation tool that matches payments to invoices, including one payment that covers several of them.",
+      "why": "A convincing explanation isn’t the same as a correct total.",
+      "interesting": "Amounts stay in integer paise, an exact branch-and-bound search picks the invoice subset, a separate verifier re-checks it, and AI only explains what’s left over.",
+      "visual": {
+        "type": "figure",
+        "figure": "subset"
+      },
+      "status": "Runs locally · hosted demo offline",
+      "summary": "Reconciliation where integer-money matching makes every decision and AI only explains exceptions.",
+      "glance": [
+        [
+          "Role",
+          "Built it end to end"
+        ],
+        [
+          "Stack",
+          "TypeScript, Next.js, PostgreSQL / SQLite, Prisma"
+        ],
+        [
+          "Matching",
+          "Exact branch-and-bound search"
+        ],
+        [
+          "Status",
+          "Runs locally · hosted demo offline"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "Reconciliation looks simple until a customer pays three invoices with one transfer, a gateway deducts a fee, or two settlements land on the same day. Then the question becomes which combination of invoices this payment covers, and the answer has to be right to the paisa.",
+            "I didn’t want a language model deciding that. It can write a plausible story for a wrong total."
+          ]
+        ],
+        [
+          "Design: deterministic decisions, AI for explanations",
+          [
+            "Every input is normalised to integer minor units first. Clean matches go through fast exact lookups. Split payments go to a combinatorial search, and only the cases that remain unresolved reach the AI investigator, whose output is advisory and checked before anything is recorded."
+          ]
+        ],
+        [
+          "The matching search",
+          [
+            "For a payment, the engine looks for the subset of eligible invoices whose total is closest to the payment, within a tolerance and a limit on how many invoices one payment may cover. The objective is the difference times 1,000 plus the number of invoices, so a smaller difference always wins and ties go to the simpler explanation.",
+            "It’s an exact branch-and-bound search in TypeScript. Invoices are sorted by amount, and any branch that already exceeds the payment is pruned. To keep requests bounded it looks at no more than the 50 smallest candidates, and it reports a result as merely “feasible” when larger candidates had to be skipped."
+          ]
+        ],
+        [
+          "Checking the checker",
+          [
+            "A separate verifier re-computes every selection: ids, tenant, totals, tolerance and the objective. In tests the engine agrees with a brute-force enumeration of every subset on 3,000 seeded random cases, and with an OR-Tools CP-SAT model of the same rules. The verifier also rejects deliberately corrupted results. OR-Tools is used only as a cross-check; the app itself runs the TypeScript search."
+          ]
+        ],
+        [
+          "Receipts",
+          [
+            "Each final decision is canonicalised, hashed and sealed with an HMAC receipt under a versioned server key, so a stored decision can be replayed and checked later. Because HMAC uses a shared secret, receipts are verified by the server, not by outside parties."
+          ]
+        ],
+        [
+          "What I’d improve",
+          [
+            "The search runs synchronously on the Node.js event loop for up to its time limit, which is fine for a single user but should move to a worker for real traffic. The hosted demo on Render is currently offline; the repository has the full local setup."
+          ]
+        ]
+      ],
+      "code": {
+        "label": "src/lib/solver/cpsat-engine.ts",
+        "path": "src/lib/solver/cpsat-engine.ts",
+        "lang": "typescript",
+        "text": "if (selected.length > 0) {\n  const diff = Math.abs(currentTotal - paymentAmount);\n  if (diff <= tolerance) {\n    const objective = diff * 1000 + selected.length;\n    if (!bestSol || objective < bestSol.objectiveValue) {\n      bestSol = { /* selection, total, diff, objective */ };\n    }\n  }\n}"
+      },
+      "code_note": "Excerpt; the stored solution object is abbreviated.",
+      "sources": [
+        [
+          "Matching engine",
+          "src/lib/solver/cpsat-engine.ts"
+        ],
+        [
+          "Independent result verifier",
+          "src/lib/solver/verifier.ts"
+        ],
+        [
+          "Brute-force reference test",
+          "tests/solver-reference-differential.test.ts"
+        ],
+        [
+          "Receipt signing",
+          "src/lib/receipts/signer.ts"
+        ],
+        [
+          "How the solver is checked",
+          "docs/solver-and-proof-verification.md"
+        ]
+      ]
+    },
+    {
+      "slug": "amazon-ml",
+      "title": "Amazon ML Challenge 2026",
+      "context": "Team Duty_Drive · entity resolution",
+      "theme": "amber",
+      "repo": "amlc26-harness",
+      "sha": "597d159",
+      "stack": [
+        "Python",
+        "LightGBM",
+        "TF-IDF",
+        "Kaggle"
+      ],
+      "badge": "Public leaderboard #1,200 · score 0.978758",
+      "what": "My team’s experiment harness and entity-resolution pipeline for linking records about the same business.",
+      "why": "The metric punished a false link four times as much as a missed one.",
+      "interesting": "I led the harness and candidate retrieval: several cheap blocking “lanes”, early pruning, reranking, and a threshold tuned so the model can say “no match”.",
+      "visual": {
+        "type": "figure",
+        "figure": "pipeline"
+      },
+      "status": "Harness reproducible from the repo · competition data not redistributable",
+      "summary": "Team Duty_Drive’s harness and entity-resolution pipeline for the Amazon ML Challenge 2026 (public leaderboard #1,200).",
+      "glance": [
+        [
+          "Team",
+          "Duty_Drive"
+        ],
+        [
+          "My part",
+          "Systems, harness and retrieval; captain of the ein track"
+        ],
+        [
+          "Result",
+          "Public leaderboard #1,200 · 0.978758"
+        ],
+        [
+          "Stack",
+          "Python, scikit-learn, LightGBM, Kaggle kernels"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "The task was entity resolution: deciding which records, from different sources, describe the same real-world business, across about 1.7 million query records from India, the US and France. Comparing every record with every other is out of the question, so the system has to find likely candidates first."
+          ]
+        ],
+        [
+          "My part in the team",
+          [
+            "We were a team of three. I led the systems side: the shared harness everyone built on, the retrieval (candidate generation) work, and the “ein” track of experiments. Teammates owned other modelling tracks, so this page doesn’t claim the whole system as mine."
+          ]
+        ],
+        [
+          "Why the metric shaped everything",
+          [
+            "Scoring used macro F0.5 per entity. With β = 0.5 a false positive costs four times as much as a missed match, so confident wrong links were the expensive mistake. That pushed the design toward high-recall candidate generation followed by a careful, precision-first decision with an explicit option to abstain."
+          ]
+        ],
+        [
+          "The pipeline",
+          [
+            "Records are normalised (accents, abbreviations), then several blocking lanes propose candidates: exact name and address anchors, character and word TF-IDF, geographic street-and-number blocks, and rare-token or postal blocks. A cheap model prunes early, richer features and a cross-encoder rerank what’s left, a LightGBM ranker scores pairs, and a threshold tuned for F0.5 plus conflict resolution produce the final links.",
+            "Inference ran as 17 country shards on Kaggle, which had to fit its session time and memory limits."
+          ]
+        ],
+        [
+          "The harness",
+          [
+            "Everyone’s experiments shared the same folds, metric code, experiment log and submission validator, so results were comparable across teammates. The public repository runs this harness and a synthetic end-to-end pipeline from a clean clone (18 tests). The specialised entity-resolution code lives on a competition branch, and the full run needs the competition data, which can’t be redistributed."
+          ]
+        ],
+        [
+          "Result",
+          [
+            "Team Duty_Drive finished at public leaderboard rank #1,200 with a score of 0.978758. The Unstop result page isn’t publicly linkable, so I can show it on request."
+          ]
+        ]
+      ],
+      "code": null,
+      "extra_links": [
+        [
+          "Competition branch (entity-resolution code)",
+          "https://github.com/AkshayAlgoX/amlc26-harness/tree/ein/agy2-competition"
+        ]
+      ],
+      "sources": [
+        [
+          "Project README",
+          "README.md"
+        ],
+        [
+          "Harness source",
+          "src"
+        ],
+        [
+          "Harness tests",
+          "tests"
+        ],
+        [
+          "Original team runbook",
+          "docs/STARTER_REPO_README.md"
+        ]
+      ]
+    },
+    {
+      "slug": "due-diligence",
+      "title": "Real Estate Due Diligence",
+      "context": "Infosys Springboard · Team 03 (team lead)",
+      "theme": "sea",
+      "repo": "due-deligence-platform",
+      "sha": "131385a",
+      "stack": [
+        "Java",
+        "Spring Boot",
+        "Next.js",
+        "PostgreSQL"
+      ],
+      "badge": null,
+      "what": "A platform that turns an Indian property address into a six-category risk report, with an AI assistant and PDF/Excel exports.",
+      "why": "A buyer’s information is scattered across flood maps, zoning rules, tax records and court cases.",
+      "interesting": "As team lead I built the backend: JWT security, the data-aggregation pipeline and the risk-scoring engine, with exports guarded by the same ownership check as the report.",
+      "visual": {
+        "type": "image",
+        "image": "dd-landing",
+        "alt": "Due Diligence landing page: Property risk, uncovered in seconds",
+        "inset": "dd-report",
+        "inset_alt": "A generated Property Risk Assessment report with a risk gauge"
+      },
+      "status": "Frontend online · backend currently offline",
+      "summary": "A team-built property due-diligence platform with six-category risk scoring and protected PDF/Excel reports.",
+      "glance": [
+        [
+          "Role",
+          "Team lead · backend"
+        ],
+        [
+          "Team",
+          "Infosys Springboard Team 03"
+        ],
+        [
+          "Stack",
+          "Java, Spring Boot, Next.js, PostgreSQL, Redis, Docker"
+        ],
+        [
+          "Status",
+          "Frontend online · backend offline"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "Buying property in India means checking flood maps, zoning rules, tax history and legal disputes across many portals. The platform pulls that together: add a property, and it produces a report with six scored risk categories, a plain-language verdict and downloadable PDF and Excel versions."
+          ]
+        ],
+        [
+          "My role",
+          [
+            "This was a team project in the Infosys Springboard virtual internship, and I was the team lead. My own work was the backend architecture, Spring Security / JWT authentication, the service-aggregation pipeline, the six-category risk scoring engine and the deployment setup. Teammates built other features across the backend and frontend; they’re credited below and in the repository."
+          ]
+        ],
+        [
+          "Architecture",
+          [
+            "A Next.js frontend talks to Spring Boot controllers. Services call the data sources, an aggregation layer assembles the property’s context, and the risk engine scores it. Report generation and the AI assistant work from that same context, and PostgreSQL stores users, properties, reports and history."
+          ]
+        ],
+        [
+          "Getting access control right",
+          [
+            "Reports belong to the person who generated them. A report id in a URL isn’t permission, so the PDF, Excel and preview exports all run the same owner-or-admin check as viewing the report. Generating a report runs asynchronously in the background and notifies the owner in the app and by email when it’s ready."
+          ]
+        ],
+        [
+          "Later improvements",
+          [
+            "Later, the codebase got two notable fixes. Notification preferences are now created race-free, and the report email is sent only after the report is committed; this is tested against a real PostgreSQL database. Property snapshot exports also now fail cleanly instead of returning placeholder data."
+          ]
+        ],
+        [
+          "Where it stands",
+          [
+            "The frontend is live on Vercel; the AWS backend is currently offline, so the live site can’t generate reports. The repository has the full local setup and the backend test suite."
+          ]
+        ]
+      ],
+      "code": null,
+      "team": [
+        "MelvinBritto",
+        "Bhavana-Bhat-528",
+        "tanishaalone30",
+        "SubashS0411",
+        "DempRepo",
+        "NalamothuLokesh"
+      ],
+      "live": "https://due-deligence-platform.vercel.app/",
+      "sources": [
+        [
+          "Project README and team",
+          "README.md"
+        ],
+        [
+          "Risk scoring engine",
+          "backend/src/main/java/com/realestate/duediligence/service/RiskScoringEngine.java"
+        ],
+        [
+          "Export ownership checks",
+          "backend/src/main/java/com/realestate/duediligence/service/impl/ExportServiceImpl.java"
+        ],
+        [
+          "Race-free notification preferences",
+          "backend/src/main/java/com/realestate/duediligence/service/NotificationPreferenceProvisioner.java"
+        ],
+        [
+          "PostgreSQL concurrency test",
+          "backend/src/test/java/com/realestate/duediligence/integration/NotificationPreferenceConcurrencyIT.java"
+        ]
+      ]
+    }
+  ],
+  "more": [
+    {
+      "title": "Glucose Twin",
+      "repo": "T2D-Glucose-Digital-Twin",
+      "image": "t2d-forecast",
+      "alt": "Glucose Twin patient workspace with a two-hour glucose forecast",
+      "text": "A research prototype built with Nikhil VS: a physiology-based digital twin plus a learned forecaster that predicts type 2 diabetes glucose spikes on a synthetic cohort. Research only; no clinical use.",
+      "meta": "Python · PyTorch · Next.js"
+    },
+    {
+      "title": "Coinpulse",
+      "repo": "Coinpulse",
+      "image": "coinpulse-dashboard",
+      "alt": "Coinpulse dashboard with a Bitcoin candlestick chart and trending coins",
+      "text": "A crypto market dashboard on the CoinGecko API, with candlestick charts, search and live price updates. The API key stays on the server.",
+      "meta": "Next.js · TypeScript",
+      "live": "https://www.lnkpro.site"
+    },
+    {
+      "title": "Ghost Data Still Exists",
+      "repo": "orchestrate-october26-work",
+      "image": null,
+      "text": "My HackerRank Orchestrate (October 2026) entry: an agent that audits whether a user’s data was really deleted, by tracing identifiers through databases, logs, exports and backups.",
+      "meta": "Python · SQLite"
+    }
+  ]
+}
