@@ -41,15 +41,15 @@
 <div class="hero-text">
 <p class="hello">Hi, I’m</p>
 <h1 id="name">Akshaya R</h1>
-<p class="lead">I build backend and full-stack software, mostly the parts where a payment has to settle exactly once and the numbers have to add up.</p>
-<p class="intro">I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I work mostly in TypeScript, Java and Python.</p>
-<div class="cta"><a class="btn primary" href="#work">See my projects <span aria-hidden="true">↓</span></a><a class="btn" href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn <span aria-hidden="true">↗</span></a><a class="btn ghost" href="https://github.com/AkshayAlgoX">GitHub <span aria-hidden="true">↗</span></a></div>
+<p class="lead">I build AI and ML systems where the output has to hold up: entity-resolution pipelines, LLM features with checks around them, and the backends they run on.</p>
+<p class="intro">I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I build with AI coding agents every day, and my part of that loop is framing the problem, reviewing what comes back and testing it until it works.</p>
+<div class="cta"><a class="btn primary" href="#work">Explore projects</a><a class="btn" href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn</a><a class="btn ghost" href="https://github.com/AkshayAlgoX">GitHub</a></div>
 <a class="win" href="/projects/buy-or-wait/"><span class="win-value">#85 of 3,062</span><span class="win-label">HackerRank Orchestrate · Sept 2026</span></a>
 </div>
 <div class="hero-art" aria-label="Glimpses of two projects">
-<figure class="glimpse g1"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>gumora.shop</span></div><img class="" src="/assets/img/gumora-discover-1200.webp" srcset="/assets/img/gumora-discover-640.webp 640w, /assets/img/gumora-discover-1200.webp 1200w" sizes="(min-width: 900px) 44vw, 92vw" width="1200" height="665" alt="Gumora storefront: a grid of creator products with prices" fetchpriority="high"></figure>
+<figure class="glimpse g1"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Glucose Twin · patient forecast</span></div><img class="" src="/assets/img/t2d-forecast-1200.webp" srcset="/assets/img/t2d-forecast-640.webp 640w, /assets/img/t2d-forecast-1200.webp 1200w" sizes="(min-width: 900px) 44vw, 92vw" width="1200" height="750" alt="Glucose Twin patient workspace: observed glucose, the physiology twin and a two-hour forecast with uncertainty bands" fetchpriority="high"></figure>
 <figure class="glimpse g2"><img class="" src="/assets/img/dd-landing-1200.webp" srcset="/assets/img/dd-landing-640.webp 640w, /assets/img/dd-landing-1200.webp 1200w" sizes="(min-width: 900px) 24vw, 60vw" width="1200" height="626" alt="Due Diligence landing page: Property risk, uncovered in seconds" fetchpriority="high"></figure>
-<p class="art-cap">Real screens: <a href="#gumora">Gumora</a>, <a href="#due-diligence">Due Diligence</a></p>
+<p class="art-cap">Real screens: <a href="#glucose-twin">Glucose Twin</a>, <a href="#due-diligence">Due Diligence</a></p>
 </div>
 </section>
 
@@ -57,6 +57,52 @@
 <div class="wrap">
 <div class="section-head"><h2 id="work-title">Selected work</h2><p>Five projects I’d most like you to look at, two of them competition entries. Each one links to the code and to a longer write-up.</p></div>
 
+<article class="feature t-amber" id="amazon-ml" aria-labelledby="h-amazon-ml">
+<div class="feature-media"><div class="panel"><svg class="fig" viewBox="0 0 520 330" role="img" aria-labelledby="pl-t pl-d">
+<title id="pl-t">Entity-resolution pipeline</title>
+<desc id="pl-d">Records are normalized, candidates come from four blocking lanes, a cheap model prunes them, richer features and a cross-encoder rerank them, and a threshold tuned for F0.5 plus conflict resolution makes the final links. Underneath is the shared harness: folds, metric, experiment log and submission validator.</desc>
+<text x="20" y="20" class="f-small">competition system · 17 country shards on Kaggle</text>
+<rect x="20" y="34" width="480" height="38" rx="8" class="f-box"/><text x="36" y="58" class="f-strong">Normalize</text><text x="132" y="58" class="f-small">accents, abbreviations, digits</text><path d="M60,72 L60,84" class="f-arrow"/><rect x="20" y="84" width="480" height="38" rx="8" class="f-sel"/><text x="36" y="108" class="f-strong">Block</text><text x="132" y="108" class="f-small">4 lanes: exact anchors, TF-IDF, geography, rare tokens</text><path d="M60,122 L60,134" class="f-arrow"/><rect x="20" y="134" width="480" height="38" rx="8" class="f-box"/><text x="36" y="158" class="f-strong">Prune</text><text x="132" y="158" class="f-small">a cheap model drops unlikely pairs early</text><path d="M60,172 L60,184" class="f-arrow"/><rect x="20" y="184" width="480" height="38" rx="8" class="f-box"/><text x="36" y="208" class="f-strong">Rerank</text><text x="132" y="208" class="f-small">richer features and a cross-encoder</text><path d="M60,222 L60,234" class="f-arrow"/><rect x="20" y="234" width="480" height="38" rx="8" class="f-box"/><text x="36" y="258" class="f-strong">Decide</text><text x="132" y="258" class="f-small">threshold tuned for F0.5, then resolve conflicts</text>
+<rect x="20" y="286" width="480" height="34" rx="8" class="f-band"/>
+<text x="260" y="308" text-anchor="middle" class="f-small">shared harness: folds · metric · experiment log · submission validator</text>
+</svg></div></div>
+<div class="feature-text">
+<p class="context">Team Duty_Drive · entity resolution</p>
+<h3 id="h-amazon-ml"><a href="/projects/amazon-ml/">Amazon ML Challenge 2026</a></h3>
+<p class="badge">Public leaderboard #1,200 · score 0.978758</p>
+<p class="what">My team’s experiment harness and entity-resolution pipeline for linking records about the same business.</p>
+<p><strong>Why it’s tricky.</strong> The metric punished a false link four times as much as a missed one.</p>
+<p><strong>What I did.</strong> I led the harness and candidate retrieval: shared folds and metric code, several cheap blocking lanes, early pruning, reranking, and a threshold tuned so the model can say “no match”.</p>
+<p class="stack">Python · LightGBM · TF-IDF · Kaggle</p>
+<p class="status">Harness reproducible from the repo · competition data not redistributable</p>
+<p class="links"><a class="more" href="/projects/amazon-ml/">Read the case study</a><a href="https://github.com/AkshayAlgoX/amlc26-harness">Code</a></p>
+</div>
+</article>
+<article class="feature t-ink flip" id="settlemate" aria-labelledby="h-settlemate">
+<div class="feature-media"><div class="panel"><svg class="fig" viewBox="0 0 520 230" role="img" aria-labelledby="ss-t ss-d">
+<title id="ss-t">Matching one payment to several invoices</title>
+<desc id="ss-d">A payment of 48,200 rupees is matched to three of five open invoices, 12,000, 18,500 and 17,700, which add up exactly.</desc>
+<rect x="30" y="80" width="160" height="50" rx="8" class="f-pay"/>
+<text x="110" y="101" text-anchor="middle" class="f-small f-inv">payment</text>
+<text x="110" y="121" text-anchor="middle" class="f-mono f-inv">₹48,200</text>
+<rect x="250" y="44" width="230" height="26" rx="6" class="f-sel"/><text x="262" y="61" class="f-mono">INV-104</text><text x="468" y="61" text-anchor="end" class="f-mono">₹12,000</text><path d="M190,105 C220,105 220,57 250,57" class="f-link"/><rect x="250" y="78" width="230" height="26" rx="6" class="f-sel"/><text x="262" y="95" class="f-mono">INV-109</text><text x="468" y="95" text-anchor="end" class="f-mono">₹18,500</text><path d="M190,105 C220,105 220,91 250,91" class="f-link"/><rect x="250" y="112" width="230" height="26" rx="6" class="f-box"/><text x="262" y="129" class="f-mono">INV-112</text><text x="468" y="129" text-anchor="end" class="f-mono">₹21,300</text><rect x="250" y="146" width="230" height="26" rx="6" class="f-sel"/><text x="262" y="163" class="f-mono">INV-117</text><text x="468" y="163" text-anchor="end" class="f-mono">₹17,700</text><path d="M190,105 C220,105 220,159 250,159" class="f-link"/><rect x="250" y="180" width="230" height="26" rx="6" class="f-box"/><text x="262" y="197" class="f-mono">INV-121</text><text x="468" y="197" text-anchor="end" class="f-mono">₹9,900</text>
+<text x="365" y="30" text-anchor="middle" class="f-small">open invoices</text>
+<text x="110" y="168" text-anchor="middle" class="f-small">difference 0 · 3 invoices</text>
+<text x="110" y="186" text-anchor="middle" class="f-small">objective = diff × 1000 + count</text>
+</svg>
+<p class="fig-cap">Illustration with made-up amounts. The search keeps every amount in integer paise.</p></div></div>
+<div class="feature-text">
+<p class="context">Financial reconciliation · Razorpay Track 04 challenge</p>
+<h3 id="h-settlemate"><a href="/projects/settlemate/">SettleMate AI</a></h3>
+
+<p class="what">A reconciliation tool that matches payments to invoices and uses an LLM only to investigate the exceptions.</p>
+<p><strong>Why it’s tricky.</strong> A convincing explanation isn’t the same as a correct total.</p>
+<p><strong>What I did.</strong> An LLM investigator drafts structured claims about each exception, and a rule-based validator checks every number and reference against the records. The matching itself stays in integer paise and an exact branch-and-bound search.</p>
+<p class="stack">TypeScript · LLM APIs · PostgreSQL · Prisma</p>
+<p class="status">Runs locally · hosted demo offline</p>
+<p class="links"><a class="more" href="/projects/settlemate/">Read the case study</a><a href="https://github.com/AkshayAlgoX/settlemate-ai">Code</a></p>
+</div>
+</article>
 <article class="feature t-forest" id="buy-or-wait" aria-labelledby="h-buy-or-wait">
 <div class="feature-media"><div class="result-shot"><img class="" src="/assets/img/orchestrate-result-1071.webp" srcset="/assets/img/orchestrate-result-1071.webp 1071w" sizes="(min-width: 900px) 40vw, 90vw" width="1071" height="158" alt="HackerRank result banner: You finished #85 of 3,062, final score 68.2 out of 100" loading="lazy" decoding="async"></div><div class="panel"><svg class="fig" viewBox="0 0 520 250" role="img" aria-labelledby="cf-t cf-d">
 <title id="cf-t">Why the payment day matters</title>
@@ -78,13 +124,27 @@
 <p class="badge">Rank #85 of 3,062 · score 68.2 / 100</p>
 <p class="what">A Python engine that decides whether a purchase should be paid now, split into payments, or postponed.</p>
 <p><strong>Why it’s tricky.</strong> A purchase can fit today’s balance and still make next month’s rent impossible.</p>
-<p><strong>What I did.</strong> It projects every future day’s balance and uses a suffix minimum to find the earliest day a payment stays safe until the end of the forecast.</p>
+<p><strong>What I did.</strong> Messages and receipt images can go through an LLM extractor, but it may only return typed facts that are validated before use. A suffix-minimum search over the projected balance then finds the earliest safe payment day.</p>
 <p class="stack">Python · Decimal · Constraint search</p>
 
-<p class="links"><a class="more" href="/projects/buy-or-wait/">Read the case study <span aria-hidden="true">→</span></a><a href="https://github.com/AkshayAlgoX/hackerrank-orchestrate-september26-akshay">Code <span aria-hidden="true">↗</span></a></p>
+<p class="links"><a class="more" href="/projects/buy-or-wait/">Read the case study</a><a href="https://github.com/AkshayAlgoX/hackerrank-orchestrate-september26-akshay">Code</a></p>
 </div>
 </article>
-<article class="feature t-plum flip" id="gumora" aria-labelledby="h-gumora">
+<article class="feature t-sea flip" id="due-diligence" aria-labelledby="h-due-diligence">
+<div class="feature-media"><div class="shot"><img class="" src="/assets/img/dd-landing-1200.webp" srcset="/assets/img/dd-landing-640.webp 640w, /assets/img/dd-landing-1200.webp 1200w" sizes="(min-width: 900px) 50vw, 100vw" width="1200" height="626" alt="Due Diligence landing page: Property risk, uncovered in seconds" loading="lazy" decoding="async"></div><img class="inset" src="/assets/img/dd-report-640.webp" srcset="/assets/img/dd-report-640.webp 640w" sizes="(min-width: 900px) 18vw, 40vw" width="640" height="663" alt="A generated Property Risk Assessment report with a risk gauge" loading="lazy" decoding="async"></div>
+<div class="feature-text">
+<p class="context">Infosys Springboard · Team 03 (team lead)</p>
+<h3 id="h-due-diligence"><a href="/projects/due-diligence/">Real Estate Due Diligence</a></h3>
+
+<p class="what">A platform that turns an Indian property address into a six-category risk report, with an AI assistant and PDF/Excel exports.</p>
+<p><strong>Why it’s tricky.</strong> A buyer’s information is scattered across flood maps, zoning rules, tax records and court cases.</p>
+<p><strong>What I did.</strong> As team lead I built the backend: JWT security, the data-aggregation pipeline, the risk-scoring engine and a streaming AI assistant that answers with the property’s own details in context.</p>
+<p class="stack">Java · Spring Boot · Groq LLM · Next.js</p>
+<p class="status">Frontend online · backend currently offline</p>
+<p class="links"><a class="more" href="/projects/due-diligence/">Read the case study</a><a href="https://github.com/AkshayAlgoX/due-deligence-platform">Code</a><a href="https://due-deligence-platform.vercel.app/">Live site</a></p>
+</div>
+</article>
+<article class="feature t-plum" id="gumora" aria-labelledby="h-gumora">
 <div class="feature-media"><div class="shot"><img class="" src="/assets/img/gumora-discover-1200.webp" srcset="/assets/img/gumora-discover-640.webp 640w, /assets/img/gumora-discover-1200.webp 1200w" sizes="(min-width: 900px) 50vw, 100vw" width="1200" height="665" alt="Gumora Discover page: a grid of creator products with prices in rupees" loading="lazy" decoding="async"></div></div>
 <div class="feature-text">
 <p class="context">Full-stack creator marketplace</p>
@@ -95,105 +155,50 @@
 <p><strong>What I did.</strong> Settlement re-checks the order with Cashfree, then marks it paid and counts the sale in one MongoDB transaction, so a repeated confirmation changes nothing.</p>
 <p class="stack">Next.js · Express · MongoDB · Cashfree</p>
 <p class="status">Storefront online at gumora.shop · API currently offline</p>
-<p class="links"><a class="more" href="/projects/gumora/">Read the case study <span aria-hidden="true">→</span></a><a href="https://github.com/AkshayAlgoX/Gumora-SaaS-Platform">Code <span aria-hidden="true">↗</span></a><a href="https://www.gumora.shop">Live site <span aria-hidden="true">↗</span></a></p>
+<p class="links"><a class="more" href="/projects/gumora/">Read the case study</a><a href="https://github.com/AkshayAlgoX/Gumora-SaaS-Platform">Code</a><a href="https://www.gumora.shop">Live site</a></p>
 </div>
 </article>
-<article class="feature t-ink" id="settlemate" aria-labelledby="h-settlemate">
-<div class="feature-media"><div class="panel"><svg class="fig" viewBox="0 0 520 230" role="img" aria-labelledby="ss-t ss-d">
-<title id="ss-t">Matching one payment to several invoices</title>
-<desc id="ss-d">A payment of 48,200 rupees is matched to three of five open invoices, 12,000, 18,500 and 17,700, which add up exactly.</desc>
-<rect x="30" y="80" width="160" height="50" rx="8" class="f-pay"/>
-<text x="110" y="101" text-anchor="middle" class="f-small f-inv">payment</text>
-<text x="110" y="121" text-anchor="middle" class="f-mono f-inv">₹48,200</text>
-<rect x="250" y="44" width="230" height="26" rx="6" class="f-sel"/><text x="262" y="61" class="f-mono">INV-104</text><text x="468" y="61" text-anchor="end" class="f-mono">₹12,000</text><path d="M190,105 C220,105 220,57 250,57" class="f-link"/><rect x="250" y="78" width="230" height="26" rx="6" class="f-sel"/><text x="262" y="95" class="f-mono">INV-109</text><text x="468" y="95" text-anchor="end" class="f-mono">₹18,500</text><path d="M190,105 C220,105 220,91 250,91" class="f-link"/><rect x="250" y="112" width="230" height="26" rx="6" class="f-box"/><text x="262" y="129" class="f-mono">INV-112</text><text x="468" y="129" text-anchor="end" class="f-mono">₹21,300</text><rect x="250" y="146" width="230" height="26" rx="6" class="f-sel"/><text x="262" y="163" class="f-mono">INV-117</text><text x="468" y="163" text-anchor="end" class="f-mono">₹17,700</text><path d="M190,105 C220,105 220,159 250,159" class="f-link"/><rect x="250" y="180" width="230" height="26" rx="6" class="f-box"/><text x="262" y="197" class="f-mono">INV-121</text><text x="468" y="197" text-anchor="end" class="f-mono">₹9,900</text>
-<text x="365" y="30" text-anchor="middle" class="f-small">open invoices</text>
-<text x="110" y="168" text-anchor="middle" class="f-small">difference 0 · 3 invoices</text>
-<text x="110" y="186" text-anchor="middle" class="f-small">objective = diff × 1000 + count</text>
-</svg>
-<p class="fig-cap">Illustration with made-up amounts. The search keeps every amount in integer paise.</p></div></div>
-<div class="feature-text">
-<p class="context">Financial reconciliation · Razorpay Track 04 challenge</p>
-<h3 id="h-settlemate"><a href="/projects/settlemate/">SettleMate AI</a></h3>
+</div>
+</section>
 
-<p class="what">A reconciliation tool that matches payments to invoices, including one payment that covers several of them.</p>
-<p><strong>Why it’s tricky.</strong> A convincing explanation isn’t the same as a correct total.</p>
-<p><strong>What I did.</strong> Amounts stay in integer paise, an exact branch-and-bound search picks the invoice subset, a separate verifier re-checks it, and AI only explains what’s left over.</p>
-<p class="stack">TypeScript · Next.js · PostgreSQL · Prisma</p>
-<p class="status">Runs locally · hosted demo offline</p>
-<p class="links"><a class="more" href="/projects/settlemate/">Read the case study <span aria-hidden="true">→</span></a><a href="https://github.com/AkshayAlgoX/settlemate-ai">Code <span aria-hidden="true">↗</span></a></p>
-</div>
-</article>
-<article class="feature t-amber flip" id="amazon-ml" aria-labelledby="h-amazon-ml">
-<div class="feature-media"><div class="panel"><svg class="fig" viewBox="0 0 520 330" role="img" aria-labelledby="pl-t pl-d">
-<title id="pl-t">Entity-resolution pipeline</title>
-<desc id="pl-d">Records are normalized, candidates come from four blocking lanes, a cheap model prunes them, richer features and a cross-encoder rerank them, and a threshold tuned for F0.5 plus conflict resolution makes the final links. Underneath is the shared harness: folds, metric, experiment log and submission validator.</desc>
-<text x="20" y="20" class="f-small">competition system · 17 country shards on Kaggle</text>
-<rect x="20" y="34" width="480" height="38" rx="8" class="f-box"/><text x="36" y="58" class="f-strong">Normalize</text><text x="132" y="58" class="f-small">accents, abbreviations, digits</text><path d="M60,72 L60,84" class="f-arrow"/><rect x="20" y="84" width="480" height="38" rx="8" class="f-sel"/><text x="36" y="108" class="f-strong">Block</text><text x="132" y="108" class="f-small">4 lanes: exact anchors, TF-IDF, geography, rare tokens</text><path d="M60,122 L60,134" class="f-arrow"/><rect x="20" y="134" width="480" height="38" rx="8" class="f-box"/><text x="36" y="158" class="f-strong">Prune</text><text x="132" y="158" class="f-small">a cheap model drops unlikely pairs early</text><path d="M60,172 L60,184" class="f-arrow"/><rect x="20" y="184" width="480" height="38" rx="8" class="f-box"/><text x="36" y="208" class="f-strong">Rerank</text><text x="132" y="208" class="f-small">richer features and a cross-encoder</text><path d="M60,222 L60,234" class="f-arrow"/><rect x="20" y="234" width="480" height="38" rx="8" class="f-box"/><text x="36" y="258" class="f-strong">Decide</text><text x="132" y="258" class="f-small">threshold tuned for F0.5, then resolve conflicts</text>
-<rect x="20" y="286" width="480" height="34" rx="8" class="f-band"/>
-<text x="260" y="308" text-anchor="middle" class="f-small">shared harness: folds · metric · experiment log · submission validator</text>
-</svg></div></div>
-<div class="feature-text">
-<p class="context">Team Duty_Drive · entity resolution</p>
-<h3 id="h-amazon-ml"><a href="/projects/amazon-ml/">Amazon ML Challenge 2026</a></h3>
-<p class="badge">Public leaderboard #1,200 · score 0.978758</p>
-<p class="what">My team’s experiment harness and entity-resolution pipeline for linking records about the same business.</p>
-<p><strong>Why it’s tricky.</strong> The metric punished a false link four times as much as a missed one.</p>
-<p><strong>What I did.</strong> I led the harness and candidate retrieval: several cheap blocking “lanes”, early pruning, reranking, and a threshold tuned so the model can say “no match”.</p>
-<p class="stack">Python · LightGBM · TF-IDF · Kaggle</p>
-<p class="status">Harness reproducible from the repo · competition data not redistributable</p>
-<p class="links"><a class="more" href="/projects/amazon-ml/">Read the case study <span aria-hidden="true">→</span></a><a href="https://github.com/AkshayAlgoX/amlc26-harness">Code <span aria-hidden="true">↗</span></a></p>
-</div>
-</article>
-<article class="feature t-sea" id="due-diligence" aria-labelledby="h-due-diligence">
-<div class="feature-media"><div class="shot"><img class="" src="/assets/img/dd-landing-1200.webp" srcset="/assets/img/dd-landing-640.webp 640w, /assets/img/dd-landing-1200.webp 1200w" sizes="(min-width: 900px) 50vw, 100vw" width="1200" height="626" alt="Due Diligence landing page: Property risk, uncovered in seconds" loading="lazy" decoding="async"></div><img class="inset" src="/assets/img/dd-report-640.webp" srcset="/assets/img/dd-report-640.webp 640w" sizes="(min-width: 900px) 18vw, 40vw" width="640" height="663" alt="A generated Property Risk Assessment report with a risk gauge" loading="lazy" decoding="async"></div>
-<div class="feature-text">
-<p class="context">Infosys Springboard · Team 03 (team lead)</p>
-<h3 id="h-due-diligence"><a href="/projects/due-diligence/">Real Estate Due Diligence</a></h3>
-
-<p class="what">A platform that turns an Indian property address into a six-category risk report, with an AI assistant and PDF/Excel exports.</p>
-<p><strong>Why it’s tricky.</strong> A buyer’s information is scattered across flood maps, zoning rules, tax records and court cases.</p>
-<p><strong>What I did.</strong> As team lead I built the backend: JWT security, the data-aggregation pipeline and the risk-scoring engine, with exports guarded by the same ownership check as the report.</p>
-<p class="stack">Java · Spring Boot · Next.js · PostgreSQL</p>
-<p class="status">Frontend online · backend currently offline</p>
-<p class="links"><a class="more" href="/projects/due-diligence/">Read the case study <span aria-hidden="true">→</span></a><a href="https://github.com/AkshayAlgoX/due-deligence-platform">Code <span aria-hidden="true">↗</span></a><a href="https://due-deligence-platform.vercel.app/">Live site <span aria-hidden="true">↗</span></a></p>
-</div>
-</article>
-</div>
+<section id="capabilities" class="capabilities wrap" aria-labelledby="cap-title">
+<div class="section-head"><h2 id="cap-title">What I can do</h2><p>Each of these comes from a project you can open and read.</p></div>
+<ul class="caps"><li class="cap"><h3>Applied ML and evaluation</h3><p>Entity resolution scored with macro F0.5, with shared folds and an experiment log so teammates’ results were comparable. A glucose forecaster checked on a locked, preregistered evaluation against a persistence baseline.</p><p class="seen">See: <a href="/projects/amazon-ml/">Amazon ML Challenge</a>, <a href="#glucose-twin">Glucose Twin</a></p></li><li class="cap"><h3>LLM features with checks</h3><p>Models propose and code decides. An LLM drafts reconciliation claims that a rule-based validator checks against the records; extraction models may only return facts in a fixed schema; a property assistant gets the property’s own details in its prompt.</p><p class="seen">See: <a href="/projects/settlemate/">SettleMate</a>, <a href="/projects/buy-or-wait/">Buy or Wait</a>, <a href="/projects/due-diligence/">Due Diligence</a></p></li><li class="cap"><h3>Data pipelines and inference</h3><p>Candidate generation, pruning and reranking across 17 country shards within Kaggle’s limits; parsing SQL snapshots, logs, JSON and PDFs into one consistent picture of a user’s data.</p><p class="seen">See: <a href="/projects/amazon-ml/">Amazon ML Challenge</a>, <a href="#ghost-data">Ghost Data</a></p></li><li class="cap"><h3>AI-assisted engineering</h3><p>Planning work for coding agents, reviewing their diffs, catching defects and keeping the history honest. Both HackerRank Orchestrate entries were built this way, under rules that require logging every agent session.</p><p class="seen">See: <a href="/projects/buy-or-wait/">Buy or Wait</a>, <a href="#ghost-data">Ghost Data</a></p></li><li class="cap"><h3>Backend and full-stack systems</h3><p>Payment settlement in a single database transaction, JWT-secured APIs, asynchronous report generation and the interfaces on top.</p><p class="seen">See: <a href="/projects/gumora/">Gumora</a>, <a href="/projects/due-diligence/">Due Diligence</a></p></li><li class="cap"><h3>Testing and reproducibility</h3><p>Tests against real MongoDB and PostgreSQL, brute-force reference checks for a search algorithm, and pipelines whose output reproduces byte for byte.</p><p class="seen">See: <a href="/projects/settlemate/">SettleMate</a>, <a href="/projects/gumora/">Gumora</a>, <a href="#ghost-data">Ghost Data</a></p></li></ul>
 </section>
 
 <section class="more-projects wrap" aria-labelledby="more-title">
 <div class="section-head"><h2 id="more-title">More projects</h2></div>
-<div class="cards"><article class="card">
+<div class="cards"><article class="card" id="glucose-twin">
 <div class="thumb"><img class="" src="/assets/img/t2d-forecast-1200.webp" srcset="/assets/img/t2d-forecast-640.webp 640w, /assets/img/t2d-forecast-1200.webp 1200w" sizes="(min-width: 900px) 30vw, 100vw" width="1200" height="750" alt="Glucose Twin patient workspace with a two-hour glucose forecast" loading="lazy" decoding="async"></div>
 <h3>Glucose Twin</h3>
-<p>A research prototype built with Nikhil VS: a physiology-based digital twin plus a learned forecaster that predicts type 2 diabetes glucose spikes on a synthetic cohort. Research only; no clinical use.</p>
-<p class="stack">Python · PyTorch · Next.js</p>
-<p class="links"><a href="https://github.com/AkshayAlgoX/T2D-Glucose-Digital-Twin">Code <span aria-hidden="true">↗</span></a></p>
-</article><article class="card">
+<p>With Nikhil VS: a hybrid glucose forecaster. A physiology model kept in step by an unscented Kalman filter gives the baseline, and a trained temporal-fusion network adds the learned part. On a locked, preregistered evaluation it beat a persistence baseline at 60 minutes. Research only.</p>
+<p class="stack">Python · PyTorch · LightGBM · Next.js</p>
+<p class="links"><a href="https://github.com/AkshayAlgoX/T2D-Glucose-Digital-Twin">Code</a></p>
+</article><article class="card" id="coinpulse">
 <div class="thumb"><img class="" src="/assets/img/coinpulse-dashboard-1200.webp" srcset="/assets/img/coinpulse-dashboard-640.webp 640w, /assets/img/coinpulse-dashboard-1200.webp 1200w" sizes="(min-width: 900px) 30vw, 100vw" width="1200" height="487" alt="Coinpulse dashboard with a Bitcoin candlestick chart and trending coins" loading="lazy" decoding="async"></div>
 <h3>Coinpulse</h3>
 <p>A crypto market dashboard on the CoinGecko API, with candlestick charts, search and live price updates. The API key stays on the server.</p>
 <p class="stack">Next.js · TypeScript</p>
-<p class="links"><a href="https://github.com/AkshayAlgoX/Coinpulse">Code <span aria-hidden="true">↗</span></a><a href="https://www.lnkpro.site">Live site <span aria-hidden="true">↗</span></a></p>
-</article><article class="card">
+<p class="links"><a href="https://github.com/AkshayAlgoX/Coinpulse">Code</a><a href="https://www.lnkpro.site">Live site</a></p>
+</article><article class="card" id="ghost-data">
 <div class="thumb"><div class="thumb-text" aria-hidden="true"><span>518 deletion requests</span><span>94 evidence files</span><span>0 model calls</span></div></div>
 <h3>Ghost Data Still Exists</h3>
 <p>My HackerRank Orchestrate (October 2026) entry: an agent that audits whether a user’s data was really deleted, by tracing identifiers through databases, logs, exports and backups.</p>
 <p class="stack">Python · SQLite</p>
-<p class="links"><a href="https://github.com/AkshayAlgoX/orchestrate-october26-work">Code <span aria-hidden="true">↗</span></a></p>
+<p class="links"><a href="https://github.com/AkshayAlgoX/orchestrate-october26-work">Code</a></p>
 </article></div>
 </section>
 
 <section id="about" class="about wrap" aria-labelledby="about-title">
-<div class="about-text"><h2 id="about-title">About me</h2><p>I’m studying for a B.E. in Computer Science and Engineering at BGS College of Engineering and Technology in Bengaluru (2023–2027, CGPA 8.49).</p><p>Most of my projects end up at the same kind of problem: a checkout that must be safe to retry, a reconciliation that has to balance to the paisa, or an ML pipeline that has to fit a competition’s time and memory limits. Competitions such as HackerRank Orchestrate and the Amazon ML Challenge have been where I practise that under a deadline.</p><p>Outside competitions I build full-stack products end to end, from the database schema and API to the interface and the CI pipeline that tests them.</p></div>
-<div class="about-side"><h3>What I work with</h3><dl class="skills"><div><dt>Languages</dt><dd>Java, TypeScript, JavaScript, Python, C++, SQL</dd></div><div><dt>Backend</dt><dd>Spring Boot, Node.js, Express, Next.js, REST, JWT / OAuth2</dd></div><div><dt>Data</dt><dd>PostgreSQL, MongoDB, Redis, SQLite, Prisma</dd></div><div><dt>Practice</dt><dd>Docker, GitHub Actions, JUnit, Vitest, Playwright, pytest</dd></div></dl></div>
+<div class="about-text"><h2 id="about-title">About me</h2><p>I’m studying for a B.E. in Computer Science and Engineering at BGS College of Engineering and Technology in Bengaluru (2023–2027, CGPA 8.49), and I’m working toward AI and machine learning engineering roles.</p><p>The work I’ve learned the most from is applied ML under real constraints: an entity-resolution pipeline for the Amazon ML Challenge that had to fit Kaggle’s time and memory limits, and a glucose forecaster that combines a physiology model with a trained network. I’ve also built LLM features into products, always with code that checks what the model says before anything depends on it.</p><p>I build with AI coding agents such as Claude Code. That doesn’t mean accepting whatever they write: I break the work into steps I can check, review the changes, run the tests and send back what doesn’t hold up. HackerRank Orchestrate is built around exactly this: entries are developed with AI agents, and every session is logged.</p></div>
+<div class="about-side"><h3>Technologies used in selected projects</h3><p>Python, TypeScript, Java · PyTorch, LightGBM, scikit-learn · OpenAI, Gemini and Groq APIs · Spring Boot, Next.js, Express · PostgreSQL, MongoDB, Redis · Docker, GitHub Actions</p></div>
 </section>
 
 <section id="experience" class="experience wrap" aria-labelledby="exp-title">
 <h2 id="exp-title">Experience</h2>
 <ol class="jobs"><li class="job"><div class="job-head"><h3>Veanka Innosol Pvt. Ltd.</h3><p class="when">Jul 2026 – present · Bengaluru</p></div>
 <p class="role">Software Engineer Intern</p><ul><li>Migrated a production React Native app from 0.80 to 0.86, working through the dependency conflicts and Gradle build failures the upgrade exposed.</li><li>Traced an infinite re-render bug in production back to its hook dependencies and fixed the cause.</li><li>Built offline-first state persistence and duration tracking for the TimeSheet module.</li></ul><p class="note">Client work; the source is private.</p></li><li class="job"><div class="job-head"><h3>Infosys Springboard</h3><p class="when">2026 · Team 03</p></div>
-<p class="role">Team Lead, Java Developer Intern (Virtual Internship 7.0)</p><ul><li>Led the team that built the Real Estate Due Diligence platform.</li><li>Owned the backend architecture, Spring Security / JWT authentication, the data-aggregation pipeline and the six-category risk scoring engine.</li></ul><p><a class="more" href="/projects/due-diligence/">Read the case study <span aria-hidden="true">→</span></a></p></li>
+<p class="role">Team Lead, Java Developer Intern (Virtual Internship 7.0)</p><ul><li>Led the team that built the Real Estate Due Diligence platform.</li><li>Owned the backend architecture, Spring Security / JWT authentication, the data-aggregation pipeline and the six-category risk scoring engine.</li></ul><p><a class="more" href="/projects/due-diligence/">Read the case study</a></p></li>
 <li class="job"><div class="job-head"><h3>BGS College of Engineering and Technology</h3><p class="when">2023 – 2027 · Bengaluru</p></div><p class="role">B.E. Computer Science and Engineering · CGPA 8.49 / 10</p></li>
 </ol>
 </section>
@@ -201,14 +206,14 @@
 <section id="contact" class="contact" aria-labelledby="contact-title">
 <div class="wrap contact-row">
 <div><h2 id="contact-title">Let’s talk</h2><p>I’m looking for software engineering roles in backend, full-stack and applied ML. LinkedIn is the best way to reach me.</p><p class="small">My résumé is available on request; message me on LinkedIn.</p></div>
-<div class="cta"><a class="btn primary" href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn <span aria-hidden="true">↗</span></a><a class="btn ghost" href="https://github.com/AkshayAlgoX">GitHub <span aria-hidden="true">↗</span></a><a class="btn ghost" href="https://leetcode.com/u/rakshay5764/">LeetCode <span aria-hidden="true">↗</span></a></div>
+<div class="cta"><a class="btn primary" href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn</a><a class="btn ghost" href="https://github.com/AkshayAlgoX">GitHub</a><a class="btn ghost" href="https://leetcode.com/u/rakshay5764/">LeetCode</a></div>
 </div>
 </section>
 </main>
 <footer class="site-foot">
 <div class="wrap foot-row">
 <p>Akshaya R · Bengaluru</p>
-<p><a href="https://github.com/AkshayAlgoX">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/AkshayAlgoX/AkshayAlgoX.github.io">Site source <span aria-hidden="true">↗</span></a></p>
+<p><a href="https://github.com/AkshayAlgoX">GitHub</a><a href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn</a><a href="https://github.com/AkshayAlgoX/AkshayAlgoX.github.io">Site source</a></p>
 </div>
 </footer>
 </body>
