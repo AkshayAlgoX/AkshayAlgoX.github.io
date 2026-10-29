@@ -53,7 +53,12 @@ def source_url(p, path):
     return f"https://github.com/AkshayAlgoX/{p['repo']}/{kind}/{p['sha']}/{quote(path, safe='/')}"
 
 
-ARROW = '<span aria-hidden="true">↗</span>'
+# One small, consistently drawn chevron, used only where direction helps
+# (back to the list, on to the next project). Decorative: hidden from screen readers.
+def chevron(direction="right"):
+    d = "M6 3l5 5-5 5" if direction == "right" else "M10 3L5 8l5 5"
+    return (f'<svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">'
+            f'<path d="{d}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 # ---------------------------------------------------------------- figures
 # Small inline SVG explanations. They illustrate how an algorithm works; they
@@ -233,7 +238,7 @@ def shell(title, description, path, body, extra_schema=None, theme_color="#f6f3e
 <footer class="site-foot">
 <div class="wrap foot-row">
 <p>Akshaya R · Bengaluru</p>
-<p><a href="{P["github"]}">GitHub {ARROW}</a><a href="{P["linkedin"]}">LinkedIn {ARROW}</a><a href="https://github.com/AkshayAlgoX/AkshayAlgoX.github.io">Site source {ARROW}</a></p>
+<p><a href="{P["github"]}">GitHub</a><a href="{P["linkedin"]}">LinkedIn</a><a href="https://github.com/AkshayAlgoX/AkshayAlgoX.github.io">Site source</a></p>
 </div>
 </footer>
 </body>
@@ -242,10 +247,10 @@ def shell(title, description, path, body, extra_schema=None, theme_color="#f6f3e
 
 
 def contact_links(primary=True):
-    resume = (f'<a class="btn ghost" href="{P["resume_url"]}">Résumé {ARROW}</a>' if P.get("resume_url")
+    resume = (f'<a class="btn ghost" href="{P["resume_url"]}">Résumé</a>' if P.get("resume_url")
               else '')
-    return (f'<a class="btn{" primary" if primary else ""}" href="{P["linkedin"]}">LinkedIn {ARROW}</a>'
-            f'<a class="btn ghost" href="{P["github"]}">GitHub {ARROW}</a>{resume}')
+    return (f'<a class="btn{" primary" if primary else ""}" href="{P["linkedin"]}">LinkedIn</a>'
+            f'<a class="btn ghost" href="{P["github"]}">GitHub</a>{resume}')
 
 
 def feature_media(p):
@@ -268,7 +273,7 @@ def homepage():
     for i, p in enumerate(SITE["featured"]):
         badge = f'<p class="badge">{E(p["badge"])}</p>' if p.get("badge") else ""
         status = f'<p class="status">{E(p["status"])}</p>' if p.get("status") else ""
-        live = f'<a href="{p["live"]}">Live site {ARROW}</a>' if p.get("live") else ""
+        live = f'<a href="{p["live"]}">Live site</a>' if p.get("live") else ""
         featured += f'''
 <article class="feature t-{p["theme"]}{" flip" if i % 2 else ""}" id="{p["slug"]}" aria-labelledby="h-{p["slug"]}">
 <div class="feature-media">{feature_media(p)}</div>
@@ -281,27 +286,30 @@ def homepage():
 <p><strong>What I did.</strong> {E(p["interesting"])}</p>
 <p class="stack">{" · ".join(E(s) for s in p["stack"])}</p>
 {status}
-<p class="links"><a class="more" href="/projects/{p["slug"]}/">Read the case study <span aria-hidden="true">→</span></a><a href="https://github.com/AkshayAlgoX/{p["repo"]}">Code {ARROW}</a>{live}</p>
+<p class="links"><a class="more" href="/projects/{p["slug"]}/">Read the case study</a><a href="https://github.com/AkshayAlgoX/{p["repo"]}">Code</a>{live}</p>
 </div>
 </article>'''
     more = ""
     for m in SITE["more"]:
         thumb = (img(m["image"], m["alt"], sizes="(min-width: 900px) 30vw, 100vw") if m.get("image")
                  else '<div class="thumb-text" aria-hidden="true"><span>518 deletion requests</span><span>94 evidence files</span><span>0 model calls</span></div>')
-        live = f'<a href="{m["live"]}">Live site {ARROW}</a>' if m.get("live") else ""
-        more += f'''<article class="card">
+        live = f'<a href="{m["live"]}">Live site</a>' if m.get("live") else ""
+        more += f'''<article class="card" id="{m.get("id", "")}">
 <div class="thumb">{thumb}</div>
 <h3>{E(m["title"])}</h3>
 <p>{E(m["text"])}</p>
 <p class="stack">{E(m["meta"])}</p>
-<p class="links"><a href="https://github.com/AkshayAlgoX/{m["repo"]}">Code {ARROW}</a>{live}</p>
+<p class="links"><a href="https://github.com/AkshayAlgoX/{m["repo"]}">Code</a>{live}</p>
 </article>'''
-    skills = "".join(f"<div><dt>{E(k)}</dt><dd>{E(v)}</dd></div>" for k, v in SITE["skills"])
+    caps = ""
+    for c in SITE["capabilities"]:
+        seen = ", ".join(f'<a href="{href}">{E(name)}</a>' for name, href in c["seen"])
+        caps += f'<li class="cap"><h3>{E(c["title"])}</h3><p>{E(c["text"])}</p><p class="seen">See: {seen}</p></li>'
     exp = ""
     for x in SITE["experience"]:
         pts = "".join(f"<li>{E(t)}</li>" for t in x["points"])
         note = f'<p class="note">{E(x["note"])}</p>' if x.get("note") else ""
-        link = f'<p><a class="more" href="{x["link"][1]}">{E(x["link"][0])} <span aria-hidden="true">→</span></a></p>' if x.get("link") else ""
+        link = f'<p><a class="more" href="{x["link"][1]}">{E(x["link"][0])}</a></p>' if x.get("link") else ""
         exp += f'''<li class="job"><div class="job-head"><h3>{E(x["org"])}</h3><p class="when">{E(x["when"])}</p></div>
 <p class="role">{E(x["role"])}</p><ul>{pts}</ul>{note}{link}</li>'''
     about = "".join(f"<p>{E(t)}</p>" for t in SITE["about"])
@@ -314,13 +322,13 @@ def homepage():
 <h1 id="name">Akshaya R</h1>
 <p class="lead">{E(P["lead"])}</p>
 <p class="intro">{E(P["intro"])}</p>
-<div class="cta"><a class="btn primary" href="#work">See my projects <span aria-hidden="true">↓</span></a>{contact_links(primary=False)}</div>
+<div class="cta"><a class="btn primary" href="#work">Explore projects</a>{contact_links(primary=False)}</div>
 <a class="win" href="{a["href"]}"><span class="win-value">{E(a["value"])}</span><span class="win-label">{E(a["label"])}</span></a>
 </div>
 <div class="hero-art" aria-label="Glimpses of two projects">
-<figure class="glimpse g1"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>gumora.shop</span></div>{img("gumora-discover", "Gumora storefront: a grid of creator products with prices", sizes="(min-width: 900px) 44vw, 92vw", eager=True)}</figure>
+<figure class="glimpse g1"><div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Glucose Twin · patient forecast</span></div>{img("t2d-forecast", "Glucose Twin patient workspace: observed glucose, the physiology twin and a two-hour forecast with uncertainty bands", sizes="(min-width: 900px) 44vw, 92vw", eager=True)}</figure>
 <figure class="glimpse g2">{img("dd-landing", "Due Diligence landing page: Property risk, uncovered in seconds", sizes="(min-width: 900px) 24vw, 60vw", eager=True)}</figure>
-<p class="art-cap">Real screens: <a href="#gumora">Gumora</a>, <a href="#due-diligence">Due Diligence</a></p>
+<p class="art-cap">Real screens: <a href="#glucose-twin">Glucose Twin</a>, <a href="#due-diligence">Due Diligence</a></p>
 </div>
 </section>
 
@@ -331,6 +339,11 @@ def homepage():
 </div>
 </section>
 
+<section id="capabilities" class="capabilities wrap" aria-labelledby="cap-title">
+<div class="section-head"><h2 id="cap-title">What I can do</h2><p>Each of these comes from a project you can open and read.</p></div>
+<ul class="caps">{caps}</ul>
+</section>
+
 <section class="more-projects wrap" aria-labelledby="more-title">
 <div class="section-head"><h2 id="more-title">More projects</h2></div>
 <div class="cards">{more}</div>
@@ -338,7 +351,7 @@ def homepage():
 
 <section id="about" class="about wrap" aria-labelledby="about-title">
 <div class="about-text"><h2 id="about-title">About me</h2>{about}</div>
-<div class="about-side"><h3>What I work with</h3><dl class="skills">{skills}</dl></div>
+<div class="about-side"><h3>Technologies used in selected projects</h3><p>{E(SITE["technologies"])}</p></div>
 </section>
 
 <section id="experience" class="experience wrap" aria-labelledby="exp-title">
@@ -351,7 +364,7 @@ def homepage():
 <section id="contact" class="contact" aria-labelledby="contact-title">
 <div class="wrap contact-row">
 <div><h2 id="contact-title">Let’s talk</h2><p>I’m looking for software engineering roles in backend, full-stack and applied ML. LinkedIn is the best way to reach me.</p>{resume_line}</div>
-<div class="cta">{contact_links()}<a class="btn ghost" href="{P["leetcode"]}">LeetCode {ARROW}</a></div>
+<div class="cta">{contact_links()}<a class="btn ghost" href="{P["leetcode"]}">LeetCode</a></div>
 </div>
 </section>
 </main>'''
@@ -375,7 +388,7 @@ def case_page(i, p):
             c = p["code"]
             note = f'<figcaption>{E(p.get("code_note", ""))}</figcaption>' if p.get("code_note") else ""
             sections += (f'<figure class="code"><div class="code-head"><span>{E(c["label"])}</span>'
-                         f'<a href="{source_url(p, c["path"])}">View file {ARROW}</a></div>'
+                         f'<a href="{source_url(p, c["path"])}">View file</a></div>'
                          f'<pre><code>{E(c["text"])}</code></pre>{note}</figure>')
     if p.get("team"):
         names = ", ".join(f'<a href="https://github.com/{t}">{E(t)}</a>' if t != "DempRepo" else "DempRepo" for t in p["team"])
@@ -385,7 +398,7 @@ def case_page(i, p):
     srcs = "".join(f'<li><a href="{source_url(p, path)}">{E(label)}</a></li>' for label, path in p["sources"])
     srcs += "".join(f'<li><a href="{url}">{E(label)}</a></li>' for label, url in p.get("extra_links", []))
     status = f'<p class="status">{E(p["status"])}</p>' if p.get("status") else ""
-    live = f'<a class="btn ghost" href="{p["live"]}">Live site {ARROW}</a>' if p.get("live") else ""
+    live = f'<a class="btn ghost" href="{p["live"]}">Live site</a>' if p.get("live") else ""
     v = p["visual"]
     if v["type"] in ("image",):
         hero = f'<div class="case-hero-media">{img(v["image"], v["alt"], sizes="(min-width: 1100px) 1000px, 100vw", eager=True)}</div>'
@@ -395,11 +408,11 @@ def case_page(i, p):
         hero = f'<figure class="case-hero-fig">{FIGURES[CASE_FIGURE[p["slug"]]]()}</figure>'
     body = f'''<main id="main" class="case t-{p["theme"]}">
 <div class="case-top"><div class="wrap">
-<p class="crumb"><a href="/#work"><span aria-hidden="true">←</span> All projects</a></p>
+<p class="crumb"><a href="/#work">{chevron("left")}All projects</a></p>
 <p class="context">{E(p["context"])}</p>
 <h1>{E(p["title"])}</h1>
 <p class="lead">{E(p["what"])}</p>
-<div class="cta"><a class="btn primary" href="https://github.com/AkshayAlgoX/{p["repo"]}">View the code {ARROW}</a>{live}</div>
+<div class="cta"><a class="btn primary" href="https://github.com/AkshayAlgoX/{p["repo"]}">View the code</a>{live}</div>
 {status}
 </div></div>
 <div class="wrap">{hero}
@@ -411,7 +424,7 @@ def case_page(i, p):
 <p class="pin">Links point to commit <code>{E(p["sha"])}</code>.</p>
 </aside>
 </div>
-<p class="next"><a href="/projects/{nxt["slug"]}/"><span>Next project</span><strong>{E(nxt["title"])}</strong><span aria-hidden="true">→</span></a></p>
+<p class="next"><a href="/projects/{nxt["slug"]}/"><span>Next project</span><strong>{E(nxt["title"])}</strong>{chevron()}</a></p>
 </div>
 </main>'''
     extra = {"@context": "https://schema.org", "@type": "CreativeWork", "name": p["title"], "url": f"{BASE}/projects/{p['slug']}/",

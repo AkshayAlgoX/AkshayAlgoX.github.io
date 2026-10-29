@@ -38,11 +38,11 @@
 </header>
 <main id="main" class="case t-plum">
 <div class="case-top"><div class="wrap">
-<p class="crumb"><a href="/#work"><span aria-hidden="true">←</span> All projects</a></p>
+<p class="crumb"><a href="/#work"><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>All projects</a></p>
 <p class="context">Full-stack creator marketplace</p>
 <h1>Gumora</h1>
 <p class="lead">A marketplace where creators sell digital products through Cashfree checkout and buyers download from a personal library.</p>
-<div class="cta"><a class="btn primary" href="https://github.com/AkshayAlgoX/Gumora-SaaS-Platform">View the code <span aria-hidden="true">↗</span></a><a class="btn ghost" href="https://www.gumora.shop">Live site <span aria-hidden="true">↗</span></a></div>
+<div class="cta"><a class="btn primary" href="https://github.com/AkshayAlgoX/Gumora-SaaS-Platform">View the code</a><a class="btn ghost" href="https://www.gumora.shop">Live site</a></div>
 <p class="status">Storefront online at gumora.shop · API currently offline</p>
 </div></div>
 <div class="wrap"><div class="case-hero-media"><img class="" src="/assets/img/gumora-discover-1200.webp" srcset="/assets/img/gumora-discover-640.webp 640w, /assets/img/gumora-discover-1200.webp 1200w" sizes="(min-width: 1100px) 1000px, 100vw" width="1200" height="665" alt="Gumora Discover page: a grid of creator products with prices in rupees" fetchpriority="high"></div>
@@ -53,7 +53,7 @@
 <rect x="12" y="50" width="116" height="62" rx="8" class="f-box"/><text x="70" y="76" text-anchor="middle" class="f-strong">Buyer returns</text><text x="70" y="95" text-anchor="middle" class="f-tiny">confirms order</text><path d="M128,81 L139,81" class="f-arrow"/><rect x="139" y="50" width="116" height="62" rx="8" class="f-box"/><text x="197" y="76" text-anchor="middle" class="f-strong">Ask Cashfree</text><text x="197" y="95" text-anchor="middle" class="f-tiny">status + amount</text><path d="M255,81 L266,81" class="f-arrow"/><rect x="266" y="50" width="116" height="62" rx="8" class="f-sel"/><text x="324" y="76" text-anchor="middle" class="f-strong">One transaction</text><text x="324" y="95" text-anchor="middle" class="f-tiny">paid + 1 sale</text><path d="M382,81 L393,81" class="f-arrow"/><rect x="393" y="50" width="116" height="62" rx="8" class="f-box"/><text x="451" y="76" text-anchor="middle" class="f-strong">Library</text><text x="451" y="95" text-anchor="middle" class="f-tiny">download unlocked</text>
 <path d="M320,150 C320,128 320,124 320,114" class="f-arrow"/>
 <text x="320" y="170" text-anchor="middle" class="f-small">a duplicate confirmation finds “paid” and changes nothing</text>
-</svg></figure><section aria-labelledby="s2"><h2 id="s2">How settlement works</h2><p>The API asks Cashfree for the order and accepts it only if the order id, status, currency and amount (compared in paise, not floats) all match. Then, inside one MongoDB transaction, it moves the order from pending to paid and increments the product’s sales count.</p><p>The update only matches an order that is still pending, so a second confirmation sees an already-paid order and returns without touching the count. If the database can’t run transactions (a standalone MongoDB server), settlement refuses to run rather than falling back to two unsafe writes.</p></section><figure class="code"><div class="code-head"><span>backend/src/services/settlement.ts</span><a href="https://github.com/AkshayAlgoX/Gumora-SaaS-Platform/blob/aecfb52/backend/src/services/settlement.ts">View file <span aria-hidden="true">↗</span></a></div><pre><code>// Runs inside session.withTransaction(...)
+</svg></figure><section aria-labelledby="s2"><h2 id="s2">How settlement works</h2><p>The API asks Cashfree for the order and accepts it only if the order id, status, currency and amount (compared in paise, not floats) all match. Then, inside one MongoDB transaction, it moves the order from pending to paid and increments the product’s sales count.</p><p>The update only matches an order that is still pending, so a second confirmation sees an already-paid order and returns without touching the count. If the database can’t run transactions (a standalone MongoDB server), settlement refuses to run rather than falling back to two unsafe writes.</p></section><figure class="code"><div class="code-head"><span>backend/src/services/settlement.ts</span><a href="https://github.com/AkshayAlgoX/Gumora-SaaS-Platform/blob/aecfb52/backend/src/services/settlement.ts">View file</a></div><pre><code>// Runs inside session.withTransaction(...)
 const transitioned = await Order.findOneAndUpdate(
   { _id: orderObjectId, status: &quot;pending&quot; },
   { $set: { status: &quot;paid&quot;, paidAt: new Date() } },
@@ -73,13 +73,13 @@ await Product.updateOne(
 <p class="pin">Links point to commit <code>aecfb52</code>.</p>
 </aside>
 </div>
-<p class="next"><a href="/projects/settlemate/"><span>Next project</span><strong>SettleMate AI</strong><span aria-hidden="true">→</span></a></p>
+<p class="next"><a href="/projects/amazon-ml/"><span>Next project</span><strong>Amazon ML Challenge 2026</strong><svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
 </div>
 </main>
 <footer class="site-foot">
 <div class="wrap foot-row">
 <p>Akshaya R · Bengaluru</p>
-<p><a href="https://github.com/AkshayAlgoX">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/AkshayAlgoX/AkshayAlgoX.github.io">Site source <span aria-hidden="true">↗</span></a></p>
+<p><a href="https://github.com/AkshayAlgoX">GitHub</a><a href="https://www.linkedin.com/in/akshaya-r-a381873a4/">LinkedIn</a><a href="https://github.com/AkshayAlgoX/AkshayAlgoX.github.io">Site source</a></p>
 </div>
 </footer>
 </body>

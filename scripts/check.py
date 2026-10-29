@@ -42,6 +42,7 @@ for p,d in docs.items():
   if t=='img':
    check(bool(a.get('alt','').strip()),label+': image alt text '+a.get('src',''))
    check(a.get('width','').isdigit() and a.get('height','').isdigit(),label+': image dimensions '+a.get('src',''))
+ check(not re.search('[\u2190-\u21ff\u2b00-\u2bff\u27f0-\u27ff]',re.sub(r'<script.*?</script>','',text,flags=re.S)),label+': no Unicode arrow glyphs (use the SVG chevron)')
  check(not re.search(r'(?i)(?:gh[pousr]_[A-Za-z0-9]{20,}|AKIA[A-Z0-9]{16}|BEGIN (?:RSA |EC )?PRIVATE KEY|mailto:|tel:)',text),label+': no credential/private contact patterns')
  for t,a in tags:
   for attr in ['href','src']:

@@ -1,8 +1,8 @@
 {
   "profile": {
     "name": "Akshaya R",
-    "lead": "I build backend and full-stack software, mostly the parts where a payment has to settle exactly once and the numbers have to add up.",
-    "intro": "I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I work mostly in TypeScript, Java and Python.",
+    "lead": "I build AI and ML systems where the output has to hold up: entity-resolution pipelines, LLM features with checks around them, and the backends they run on.",
+    "intro": "I’m a computer science undergraduate in Bengaluru (class of 2027) and a software engineering intern at Veanka Innosol. I build with AI coding agents every day, and my part of that loop is framing the problem, reviewing what comes back and testing it until it works.",
     "achievement": {
       "label": "HackerRank Orchestrate · Sept 2026",
       "value": "#85 of 3,062",
@@ -14,27 +14,9 @@
     "resume_url": null
   },
   "about": [
-    "I’m studying for a B.E. in Computer Science and Engineering at BGS College of Engineering and Technology in Bengaluru (2023–2027, CGPA 8.49).",
-    "Most of my projects end up at the same kind of problem: a checkout that must be safe to retry, a reconciliation that has to balance to the paisa, or an ML pipeline that has to fit a competition’s time and memory limits. Competitions such as HackerRank Orchestrate and the Amazon ML Challenge have been where I practise that under a deadline.",
-    "Outside competitions I build full-stack products end to end, from the database schema and API to the interface and the CI pipeline that tests them."
-  ],
-  "skills": [
-    [
-      "Languages",
-      "Java, TypeScript, JavaScript, Python, C++, SQL"
-    ],
-    [
-      "Backend",
-      "Spring Boot, Node.js, Express, Next.js, REST, JWT / OAuth2"
-    ],
-    [
-      "Data",
-      "PostgreSQL, MongoDB, Redis, SQLite, Prisma"
-    ],
-    [
-      "Practice",
-      "Docker, GitHub Actions, JUnit, Vitest, Playwright, pytest"
-    ]
+    "I’m studying for a B.E. in Computer Science and Engineering at BGS College of Engineering and Technology in Bengaluru (2023–2027, CGPA 8.49), and I’m working toward AI and machine learning engineering roles.",
+    "The work I’ve learned the most from is applied ML under real constraints: an entity-resolution pipeline for the Amazon ML Challenge that had to fit Kaggle’s time and memory limits, and a glucose forecaster that combines a physiology model with a trained network. I’ve also built LLM features into products, always with code that checks what the model says before anything depends on it.",
+    "I build with AI coding agents such as Claude Code. That doesn’t mean accepting whatever they write: I break the work into steps I can check, review the changes, run the tests and send back what doesn’t hold up. HackerRank Orchestrate is built around exactly this: entries are developed with AI agents, and every session is logged."
   ],
   "experience": [
     {
@@ -64,6 +46,238 @@
   ],
   "featured": [
     {
+      "slug": "amazon-ml",
+      "title": "Amazon ML Challenge 2026",
+      "context": "Team Duty_Drive · entity resolution",
+      "theme": "amber",
+      "repo": "amlc26-harness",
+      "sha": "597d159",
+      "stack": [
+        "Python",
+        "LightGBM",
+        "TF-IDF",
+        "Kaggle"
+      ],
+      "badge": "Public leaderboard #1,200 · score 0.978758",
+      "what": "My team’s experiment harness and entity-resolution pipeline for linking records about the same business.",
+      "why": "The metric punished a false link four times as much as a missed one.",
+      "interesting": "I led the harness and candidate retrieval: shared folds and metric code, several cheap blocking lanes, early pruning, reranking, and a threshold tuned so the model can say “no match”.",
+      "visual": {
+        "type": "figure",
+        "figure": "pipeline"
+      },
+      "status": "Harness reproducible from the repo · competition data not redistributable",
+      "summary": "Team Duty_Drive’s harness and entity-resolution pipeline for the Amazon ML Challenge 2026 (public leaderboard #1,200).",
+      "glance": [
+        [
+          "Team",
+          "Duty_Drive"
+        ],
+        [
+          "My part",
+          "Systems, harness and retrieval; captain of the ein track"
+        ],
+        [
+          "Result",
+          "Public leaderboard #1,200 · 0.978758"
+        ],
+        [
+          "Stack",
+          "Python, scikit-learn, LightGBM, Kaggle kernels"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "The task was entity resolution: deciding which records, from different sources, describe the same real-world business, across about 1.7 million query records from India, the US and France. Comparing every record with every other is out of the question, so the system has to find likely candidates first."
+          ]
+        ],
+        [
+          "My part in the team",
+          [
+            "We were a team of three. I led the systems side: the shared harness everyone built on, the retrieval (candidate generation) work, and the “ein” track of experiments. Teammates owned other modelling tracks, so this page doesn’t claim the whole system as mine."
+          ]
+        ],
+        [
+          "Why the metric shaped everything",
+          [
+            "Scoring used macro F0.5 per entity. With β = 0.5 a false positive costs four times as much as a missed match, so confident wrong links were the expensive mistake. That pushed the design toward high-recall candidate generation followed by a careful, precision-first decision with an explicit option to abstain."
+          ]
+        ],
+        [
+          "The pipeline",
+          [
+            "Records are normalised (accents, abbreviations), then several blocking lanes propose candidates: exact name and address anchors, character and word TF-IDF, geographic street-and-number blocks, and rare-token or postal blocks. A cheap model prunes early, richer features and a cross-encoder rerank what’s left, a LightGBM ranker scores pairs, and a threshold tuned for F0.5 plus conflict resolution produce the final links.",
+            "Inference ran as 17 country shards on Kaggle, which had to fit its session time and memory limits."
+          ]
+        ],
+        [
+          "The harness",
+          [
+            "Everyone’s experiments shared the same folds, metric code, experiment log and submission validator, so results were comparable across teammates. The public repository runs this harness and a synthetic end-to-end pipeline from a clean clone (18 tests). The specialised entity-resolution code lives on a competition branch, and the full run needs the competition data, which can’t be redistributed."
+          ]
+        ],
+        [
+          "Result",
+          [
+            "Team Duty_Drive finished at public leaderboard rank #1,200 with a score of 0.978758. The Unstop result page isn’t publicly linkable, so I can show it on request."
+          ]
+        ]
+      ],
+      "code": null,
+      "extra_links": [
+        [
+          "Competition branch (entity-resolution code)",
+          "https://github.com/AkshayAlgoX/amlc26-harness/tree/ein/agy2-competition"
+        ]
+      ],
+      "sources": [
+        [
+          "Project README",
+          "README.md"
+        ],
+        [
+          "Harness source",
+          "src"
+        ],
+        [
+          "Harness tests",
+          "tests"
+        ],
+        [
+          "Original team runbook",
+          "docs/STARTER_REPO_README.md"
+        ]
+      ]
+    },
+    {
+      "slug": "settlemate",
+      "title": "SettleMate AI",
+      "context": "Financial reconciliation · Razorpay Track 04 challenge",
+      "theme": "ink",
+      "repo": "settlemate-ai",
+      "sha": "7d655f6",
+      "stack": [
+        "TypeScript",
+        "LLM APIs",
+        "PostgreSQL",
+        "Prisma"
+      ],
+      "badge": null,
+      "what": "A reconciliation tool that matches payments to invoices and uses an LLM only to investigate the exceptions.",
+      "why": "A convincing explanation isn’t the same as a correct total.",
+      "interesting": "An LLM investigator drafts structured claims about each exception, and a rule-based validator checks every number and reference against the records. The matching itself stays in integer paise and an exact branch-and-bound search.",
+      "visual": {
+        "type": "figure",
+        "figure": "subset"
+      },
+      "status": "Runs locally · hosted demo offline",
+      "summary": "Reconciliation where integer-money matching makes every decision and AI only explains exceptions.",
+      "glance": [
+        [
+          "Role",
+          "Built it end to end"
+        ],
+        [
+          "Stack",
+          "TypeScript, Next.js, PostgreSQL / SQLite, Prisma"
+        ],
+        [
+          "Matching",
+          "Exact branch-and-bound search"
+        ],
+        [
+          "Status",
+          "Runs locally · hosted demo offline"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "Reconciliation looks simple until a customer pays three invoices with one transfer, a gateway deducts a fee, or two settlements land on the same day. Then the question becomes which combination of invoices this payment covers, and the answer has to be right to the paisa.",
+            "I didn’t want a language model deciding that. It can write a plausible story for a wrong total."
+          ]
+        ],
+        [
+          "Design: deterministic decisions, AI for explanations",
+          [
+            "Every input is normalised to integer minor units first. Clean matches go through fast exact lookups. Split payments go to a combinatorial search, and only the cases that remain unresolved reach the AI investigator, whose output is advisory and checked before anything is recorded."
+          ]
+        ],
+        [
+          "Where the LLM fits",
+          [
+            "When a case doesn’t resolve cleanly, an LLM investigator (OpenAI, Anthropic or Gemini, whichever key is configured) is asked for structured, checkable claims rather than prose: which record, which amount, which policy. A rule-based validator then checks each claim: evidence ids must exist and belong to the case, amounts must equal the source records to the paisa, and timing and policy claims are recomputed. A critic pass challenges anything left unverified.",
+            "Record text such as bank narrations is treated as data, never as instructions, and without an API key the system falls back to rule-based claims. The model’s output is advisory; it can’t write to the ledger."
+          ]
+        ],
+        [
+          "The matching search",
+          [
+            "For a payment, the engine looks for the subset of eligible invoices whose total is closest to the payment, within a tolerance and a limit on how many invoices one payment may cover. The objective is the difference times 1,000 plus the number of invoices, so a smaller difference always wins and ties go to the simpler explanation.",
+            "It’s an exact branch-and-bound search in TypeScript. Invoices are sorted by amount, and any branch that already exceeds the payment is pruned. To keep requests bounded it looks at no more than the 50 smallest candidates, and it reports a result as merely “feasible” when larger candidates had to be skipped."
+          ]
+        ],
+        [
+          "Checking the checker",
+          [
+            "A separate verifier re-computes every selection: ids, tenant, totals, tolerance and the objective. In tests the engine agrees with a brute-force enumeration of every subset on 3,000 seeded random cases, and with an OR-Tools CP-SAT model of the same rules. The verifier also rejects deliberately corrupted results. OR-Tools is used only as a cross-check; the app itself runs the TypeScript search."
+          ]
+        ],
+        [
+          "Receipts",
+          [
+            "Each final decision is canonicalised, hashed and sealed with an HMAC receipt under a versioned server key, so a stored decision can be replayed and checked later. Because HMAC uses a shared secret, receipts are verified by the server, not by outside parties."
+          ]
+        ],
+        [
+          "What I’d improve",
+          [
+            "The search runs synchronously on the Node.js event loop for up to its time limit, which is fine for a single user but should move to a worker for real traffic. The hosted demo on Render is currently offline; the repository has the full local setup."
+          ]
+        ]
+      ],
+      "code": {
+        "label": "src/lib/solver/cpsat-engine.ts",
+        "path": "src/lib/solver/cpsat-engine.ts",
+        "lang": "typescript",
+        "text": "if (selected.length > 0) {\n  const diff = Math.abs(currentTotal - paymentAmount);\n  if (diff <= tolerance) {\n    const objective = diff * 1000 + selected.length;\n    if (!bestSol || objective < bestSol.objectiveValue) {\n      bestSol = { /* selection, total, diff, objective */ };\n    }\n  }\n}"
+      },
+      "code_note": "Excerpt; the stored solution object is abbreviated.",
+      "sources": [
+        [
+          "Matching engine",
+          "src/lib/solver/cpsat-engine.ts"
+        ],
+        [
+          "LLM investigator",
+          "src/lib/ai/llm-investigator.ts"
+        ],
+        [
+          "Rule-based claim validator",
+          "src/lib/ai/claim-validator.ts"
+        ],
+        [
+          "Independent result verifier",
+          "src/lib/solver/verifier.ts"
+        ],
+        [
+          "Brute-force reference test",
+          "tests/solver-reference-differential.test.ts"
+        ],
+        [
+          "Receipt signing",
+          "src/lib/receipts/signer.ts"
+        ],
+        [
+          "How the solver is checked",
+          "docs/solver-and-proof-verification.md"
+        ]
+      ]
+    },
+    {
       "slug": "buy-or-wait",
       "title": "Buy or Wait?",
       "context": "HackerRank Orchestrate · September 2026 · individual",
@@ -78,7 +292,7 @@
       "badge": "Rank #85 of 3,062 · score 68.2 / 100",
       "what": "A Python engine that decides whether a purchase should be paid now, split into payments, or postponed.",
       "why": "A purchase can fit today’s balance and still make next month’s rent impossible.",
-      "interesting": "It projects every future day’s balance and uses a suffix minimum to find the earliest day a payment stays safe until the end of the forecast.",
+      "interesting": "Messages and receipt images can go through an LLM extractor, but it may only return typed facts that are validated before use. A suffix-minimum search over the projected balance then finds the earliest safe payment day.",
       "visual": {
         "type": "image+figure",
         "image": "orchestrate-result",
@@ -117,7 +331,7 @@
           "How it works",
           [
             "The pipeline extracts facts from the messages, validates them against a closed schema, reconstructs a ledger in Python `Decimal`, projects every future day’s balance, and then searches payment plans.",
-            "Extraction can only produce typed facts. It can’t set a balance or choose a plan. A missing debit amount stops the case instead of silently becoming zero, and pending credits never count as spendable money."
+            "Extraction can use rules or an LLM/vision model behind a provider-neutral interface (OpenAI-compatible, DeepSeek or Anthropic). Either way the model may only return facts in a fixed JSON schema; message and image text is passed as data, and nothing it returns skips validation. A missing debit amount stops the case instead of silently becoming zero."
           ]
         ],
         [
@@ -170,12 +384,141 @@
           "code/buyorwait/evidence.py"
         ],
         [
+          "LLM / vision extractor",
+          "code/buyorwait/extraction/llm.py"
+        ],
+        [
           "Test summary",
           "docs/TEST_VERIFICATION_SUMMARY.md"
         ],
         [
           "Result banner",
           "docs/assets/hackerrank_orchestrate_result_banner.png"
+        ]
+      ]
+    },
+    {
+      "slug": "due-diligence",
+      "title": "Real Estate Due Diligence",
+      "context": "Infosys Springboard · Team 03 (team lead)",
+      "theme": "sea",
+      "repo": "due-deligence-platform",
+      "sha": "131385a",
+      "stack": [
+        "Java",
+        "Spring Boot",
+        "Groq LLM",
+        "Next.js"
+      ],
+      "badge": null,
+      "what": "A platform that turns an Indian property address into a six-category risk report, with an AI assistant and PDF/Excel exports.",
+      "why": "A buyer’s information is scattered across flood maps, zoning rules, tax records and court cases.",
+      "interesting": "As team lead I built the backend: JWT security, the data-aggregation pipeline, the risk-scoring engine and a streaming AI assistant that answers with the property’s own details in context.",
+      "visual": {
+        "type": "image",
+        "image": "dd-landing",
+        "alt": "Due Diligence landing page: Property risk, uncovered in seconds",
+        "inset": "dd-report",
+        "inset_alt": "A generated Property Risk Assessment report with a risk gauge"
+      },
+      "status": "Frontend online · backend currently offline",
+      "summary": "A team-built property due-diligence platform with six-category risk scoring and protected PDF/Excel reports.",
+      "glance": [
+        [
+          "Role",
+          "Team lead · backend"
+        ],
+        [
+          "Team",
+          "Infosys Springboard Team 03"
+        ],
+        [
+          "Stack",
+          "Java, Spring Boot, Next.js, PostgreSQL, Redis, Docker"
+        ],
+        [
+          "Status",
+          "Frontend online · backend offline"
+        ]
+      ],
+      "sections": [
+        [
+          "The problem",
+          [
+            "Buying property in India means checking flood maps, zoning rules, tax history and legal disputes across many portals. The platform pulls that together: add a property, and it produces a report with six scored risk categories, a plain-language verdict and downloadable PDF and Excel versions."
+          ]
+        ],
+        [
+          "My role",
+          [
+            "This was a team project in the Infosys Springboard virtual internship, and I was the team lead. My own work was the backend architecture, Spring Security / JWT authentication, the service-aggregation pipeline, the six-category risk scoring engine and the deployment setup. Teammates built other features across the backend and frontend; they’re credited below and in the repository."
+          ]
+        ],
+        [
+          "Architecture",
+          [
+            "A Next.js frontend talks to Spring Boot controllers. Services call the data sources, an aggregation layer assembles the property’s context, and the risk engine scores it. Report generation and the AI assistant work from that same context, and PostgreSQL stores users, properties, reports and history."
+          ]
+        ],
+        [
+          "The AI assistant",
+          [
+            "The assistant streams answers from Llama 3.3 70B through Groq. Before each conversation the backend builds the system prompt from that property’s record: address, type, area, market value, zoning, condition and which fields are missing. Answers stay tied to the property the user is looking at, and off-topic questions are redirected. Report summaries use the same integration."
+          ]
+        ],
+        [
+          "Getting access control right",
+          [
+            "Reports belong to the person who generated them. A report id in a URL isn’t permission, so the PDF, Excel and preview exports all run the same owner-or-admin check as viewing the report. Generating a report runs asynchronously in the background and notifies the owner in the app and by email when it’s ready."
+          ]
+        ],
+        [
+          "Later improvements",
+          [
+            "Later, the codebase got two notable fixes. Notification preferences are now created race-free, and the report email is sent only after the report is committed; this is tested against a real PostgreSQL database. Property snapshot exports also now fail cleanly instead of returning placeholder data."
+          ]
+        ],
+        [
+          "Where it stands",
+          [
+            "The frontend is live on Vercel; the AWS backend is currently offline, so the live site can’t generate reports. The repository has the full local setup and the backend test suite."
+          ]
+        ]
+      ],
+      "code": null,
+      "team": [
+        "MelvinBritto",
+        "Bhavana-Bhat-528",
+        "tanishaalone30",
+        "SubashS0411",
+        "DempRepo",
+        "NalamothuLokesh"
+      ],
+      "live": "https://due-deligence-platform.vercel.app/",
+      "sources": [
+        [
+          "Project README and team",
+          "README.md"
+        ],
+        [
+          "Streaming AI assistant",
+          "backend/src/main/java/com/realestate/duediligence/service/impl/AgentChatServiceImpl.java"
+        ],
+        [
+          "Risk scoring engine",
+          "backend/src/main/java/com/realestate/duediligence/service/RiskScoringEngine.java"
+        ],
+        [
+          "Export ownership checks",
+          "backend/src/main/java/com/realestate/duediligence/service/impl/ExportServiceImpl.java"
+        ],
+        [
+          "Race-free notification preferences",
+          "backend/src/main/java/com/realestate/duediligence/service/NotificationPreferenceProvisioner.java"
+        ],
+        [
+          "PostgreSQL concurrency test",
+          "backend/src/test/java/com/realestate/duediligence/integration/NotificationPreferenceConcurrencyIT.java"
         ]
       ]
     },
@@ -293,338 +636,6 @@
           "docs/payment-settlement.md"
         ]
       ]
-    },
-    {
-      "slug": "settlemate",
-      "title": "SettleMate AI",
-      "context": "Financial reconciliation · Razorpay Track 04 challenge",
-      "theme": "ink",
-      "repo": "settlemate-ai",
-      "sha": "7d655f6",
-      "stack": [
-        "TypeScript",
-        "Next.js",
-        "PostgreSQL",
-        "Prisma"
-      ],
-      "badge": null,
-      "what": "A reconciliation tool that matches payments to invoices, including one payment that covers several of them.",
-      "why": "A convincing explanation isn’t the same as a correct total.",
-      "interesting": "Amounts stay in integer paise, an exact branch-and-bound search picks the invoice subset, a separate verifier re-checks it, and AI only explains what’s left over.",
-      "visual": {
-        "type": "figure",
-        "figure": "subset"
-      },
-      "status": "Runs locally · hosted demo offline",
-      "summary": "Reconciliation where integer-money matching makes every decision and AI only explains exceptions.",
-      "glance": [
-        [
-          "Role",
-          "Built it end to end"
-        ],
-        [
-          "Stack",
-          "TypeScript, Next.js, PostgreSQL / SQLite, Prisma"
-        ],
-        [
-          "Matching",
-          "Exact branch-and-bound search"
-        ],
-        [
-          "Status",
-          "Runs locally · hosted demo offline"
-        ]
-      ],
-      "sections": [
-        [
-          "The problem",
-          [
-            "Reconciliation looks simple until a customer pays three invoices with one transfer, a gateway deducts a fee, or two settlements land on the same day. Then the question becomes which combination of invoices this payment covers, and the answer has to be right to the paisa.",
-            "I didn’t want a language model deciding that. It can write a plausible story for a wrong total."
-          ]
-        ],
-        [
-          "Design: deterministic decisions, AI for explanations",
-          [
-            "Every input is normalised to integer minor units first. Clean matches go through fast exact lookups. Split payments go to a combinatorial search, and only the cases that remain unresolved reach the AI investigator, whose output is advisory and checked before anything is recorded."
-          ]
-        ],
-        [
-          "The matching search",
-          [
-            "For a payment, the engine looks for the subset of eligible invoices whose total is closest to the payment, within a tolerance and a limit on how many invoices one payment may cover. The objective is the difference times 1,000 plus the number of invoices, so a smaller difference always wins and ties go to the simpler explanation.",
-            "It’s an exact branch-and-bound search in TypeScript. Invoices are sorted by amount, and any branch that already exceeds the payment is pruned. To keep requests bounded it looks at no more than the 50 smallest candidates, and it reports a result as merely “feasible” when larger candidates had to be skipped."
-          ]
-        ],
-        [
-          "Checking the checker",
-          [
-            "A separate verifier re-computes every selection: ids, tenant, totals, tolerance and the objective. In tests the engine agrees with a brute-force enumeration of every subset on 3,000 seeded random cases, and with an OR-Tools CP-SAT model of the same rules. The verifier also rejects deliberately corrupted results. OR-Tools is used only as a cross-check; the app itself runs the TypeScript search."
-          ]
-        ],
-        [
-          "Receipts",
-          [
-            "Each final decision is canonicalised, hashed and sealed with an HMAC receipt under a versioned server key, so a stored decision can be replayed and checked later. Because HMAC uses a shared secret, receipts are verified by the server, not by outside parties."
-          ]
-        ],
-        [
-          "What I’d improve",
-          [
-            "The search runs synchronously on the Node.js event loop for up to its time limit, which is fine for a single user but should move to a worker for real traffic. The hosted demo on Render is currently offline; the repository has the full local setup."
-          ]
-        ]
-      ],
-      "code": {
-        "label": "src/lib/solver/cpsat-engine.ts",
-        "path": "src/lib/solver/cpsat-engine.ts",
-        "lang": "typescript",
-        "text": "if (selected.length > 0) {\n  const diff = Math.abs(currentTotal - paymentAmount);\n  if (diff <= tolerance) {\n    const objective = diff * 1000 + selected.length;\n    if (!bestSol || objective < bestSol.objectiveValue) {\n      bestSol = { /* selection, total, diff, objective */ };\n    }\n  }\n}"
-      },
-      "code_note": "Excerpt; the stored solution object is abbreviated.",
-      "sources": [
-        [
-          "Matching engine",
-          "src/lib/solver/cpsat-engine.ts"
-        ],
-        [
-          "Independent result verifier",
-          "src/lib/solver/verifier.ts"
-        ],
-        [
-          "Brute-force reference test",
-          "tests/solver-reference-differential.test.ts"
-        ],
-        [
-          "Receipt signing",
-          "src/lib/receipts/signer.ts"
-        ],
-        [
-          "How the solver is checked",
-          "docs/solver-and-proof-verification.md"
-        ]
-      ]
-    },
-    {
-      "slug": "amazon-ml",
-      "title": "Amazon ML Challenge 2026",
-      "context": "Team Duty_Drive · entity resolution",
-      "theme": "amber",
-      "repo": "amlc26-harness",
-      "sha": "597d159",
-      "stack": [
-        "Python",
-        "LightGBM",
-        "TF-IDF",
-        "Kaggle"
-      ],
-      "badge": "Public leaderboard #1,200 · score 0.978758",
-      "what": "My team’s experiment harness and entity-resolution pipeline for linking records about the same business.",
-      "why": "The metric punished a false link four times as much as a missed one.",
-      "interesting": "I led the harness and candidate retrieval: several cheap blocking “lanes”, early pruning, reranking, and a threshold tuned so the model can say “no match”.",
-      "visual": {
-        "type": "figure",
-        "figure": "pipeline"
-      },
-      "status": "Harness reproducible from the repo · competition data not redistributable",
-      "summary": "Team Duty_Drive’s harness and entity-resolution pipeline for the Amazon ML Challenge 2026 (public leaderboard #1,200).",
-      "glance": [
-        [
-          "Team",
-          "Duty_Drive"
-        ],
-        [
-          "My part",
-          "Systems, harness and retrieval; captain of the ein track"
-        ],
-        [
-          "Result",
-          "Public leaderboard #1,200 · 0.978758"
-        ],
-        [
-          "Stack",
-          "Python, scikit-learn, LightGBM, Kaggle kernels"
-        ]
-      ],
-      "sections": [
-        [
-          "The problem",
-          [
-            "The task was entity resolution: deciding which records, from different sources, describe the same real-world business, across about 1.7 million query records from India, the US and France. Comparing every record with every other is out of the question, so the system has to find likely candidates first."
-          ]
-        ],
-        [
-          "My part in the team",
-          [
-            "We were a team of three. I led the systems side: the shared harness everyone built on, the retrieval (candidate generation) work, and the “ein” track of experiments. Teammates owned other modelling tracks, so this page doesn’t claim the whole system as mine."
-          ]
-        ],
-        [
-          "Why the metric shaped everything",
-          [
-            "Scoring used macro F0.5 per entity. With β = 0.5 a false positive costs four times as much as a missed match, so confident wrong links were the expensive mistake. That pushed the design toward high-recall candidate generation followed by a careful, precision-first decision with an explicit option to abstain."
-          ]
-        ],
-        [
-          "The pipeline",
-          [
-            "Records are normalised (accents, abbreviations), then several blocking lanes propose candidates: exact name and address anchors, character and word TF-IDF, geographic street-and-number blocks, and rare-token or postal blocks. A cheap model prunes early, richer features and a cross-encoder rerank what’s left, a LightGBM ranker scores pairs, and a threshold tuned for F0.5 plus conflict resolution produce the final links.",
-            "Inference ran as 17 country shards on Kaggle, which had to fit its session time and memory limits."
-          ]
-        ],
-        [
-          "The harness",
-          [
-            "Everyone’s experiments shared the same folds, metric code, experiment log and submission validator, so results were comparable across teammates. The public repository runs this harness and a synthetic end-to-end pipeline from a clean clone (18 tests). The specialised entity-resolution code lives on a competition branch, and the full run needs the competition data, which can’t be redistributed."
-          ]
-        ],
-        [
-          "Result",
-          [
-            "Team Duty_Drive finished at public leaderboard rank #1,200 with a score of 0.978758. The Unstop result page isn’t publicly linkable, so I can show it on request."
-          ]
-        ]
-      ],
-      "code": null,
-      "extra_links": [
-        [
-          "Competition branch (entity-resolution code)",
-          "https://github.com/AkshayAlgoX/amlc26-harness/tree/ein/agy2-competition"
-        ]
-      ],
-      "sources": [
-        [
-          "Project README",
-          "README.md"
-        ],
-        [
-          "Harness source",
-          "src"
-        ],
-        [
-          "Harness tests",
-          "tests"
-        ],
-        [
-          "Original team runbook",
-          "docs/STARTER_REPO_README.md"
-        ]
-      ]
-    },
-    {
-      "slug": "due-diligence",
-      "title": "Real Estate Due Diligence",
-      "context": "Infosys Springboard · Team 03 (team lead)",
-      "theme": "sea",
-      "repo": "due-deligence-platform",
-      "sha": "131385a",
-      "stack": [
-        "Java",
-        "Spring Boot",
-        "Next.js",
-        "PostgreSQL"
-      ],
-      "badge": null,
-      "what": "A platform that turns an Indian property address into a six-category risk report, with an AI assistant and PDF/Excel exports.",
-      "why": "A buyer’s information is scattered across flood maps, zoning rules, tax records and court cases.",
-      "interesting": "As team lead I built the backend: JWT security, the data-aggregation pipeline and the risk-scoring engine, with exports guarded by the same ownership check as the report.",
-      "visual": {
-        "type": "image",
-        "image": "dd-landing",
-        "alt": "Due Diligence landing page: Property risk, uncovered in seconds",
-        "inset": "dd-report",
-        "inset_alt": "A generated Property Risk Assessment report with a risk gauge"
-      },
-      "status": "Frontend online · backend currently offline",
-      "summary": "A team-built property due-diligence platform with six-category risk scoring and protected PDF/Excel reports.",
-      "glance": [
-        [
-          "Role",
-          "Team lead · backend"
-        ],
-        [
-          "Team",
-          "Infosys Springboard Team 03"
-        ],
-        [
-          "Stack",
-          "Java, Spring Boot, Next.js, PostgreSQL, Redis, Docker"
-        ],
-        [
-          "Status",
-          "Frontend online · backend offline"
-        ]
-      ],
-      "sections": [
-        [
-          "The problem",
-          [
-            "Buying property in India means checking flood maps, zoning rules, tax history and legal disputes across many portals. The platform pulls that together: add a property, and it produces a report with six scored risk categories, a plain-language verdict and downloadable PDF and Excel versions."
-          ]
-        ],
-        [
-          "My role",
-          [
-            "This was a team project in the Infosys Springboard virtual internship, and I was the team lead. My own work was the backend architecture, Spring Security / JWT authentication, the service-aggregation pipeline, the six-category risk scoring engine and the deployment setup. Teammates built other features across the backend and frontend; they’re credited below and in the repository."
-          ]
-        ],
-        [
-          "Architecture",
-          [
-            "A Next.js frontend talks to Spring Boot controllers. Services call the data sources, an aggregation layer assembles the property’s context, and the risk engine scores it. Report generation and the AI assistant work from that same context, and PostgreSQL stores users, properties, reports and history."
-          ]
-        ],
-        [
-          "Getting access control right",
-          [
-            "Reports belong to the person who generated them. A report id in a URL isn’t permission, so the PDF, Excel and preview exports all run the same owner-or-admin check as viewing the report. Generating a report runs asynchronously in the background and notifies the owner in the app and by email when it’s ready."
-          ]
-        ],
-        [
-          "Later improvements",
-          [
-            "Later, the codebase got two notable fixes. Notification preferences are now created race-free, and the report email is sent only after the report is committed; this is tested against a real PostgreSQL database. Property snapshot exports also now fail cleanly instead of returning placeholder data."
-          ]
-        ],
-        [
-          "Where it stands",
-          [
-            "The frontend is live on Vercel; the AWS backend is currently offline, so the live site can’t generate reports. The repository has the full local setup and the backend test suite."
-          ]
-        ]
-      ],
-      "code": null,
-      "team": [
-        "MelvinBritto",
-        "Bhavana-Bhat-528",
-        "tanishaalone30",
-        "SubashS0411",
-        "DempRepo",
-        "NalamothuLokesh"
-      ],
-      "live": "https://due-deligence-platform.vercel.app/",
-      "sources": [
-        [
-          "Project README and team",
-          "README.md"
-        ],
-        [
-          "Risk scoring engine",
-          "backend/src/main/java/com/realestate/duediligence/service/RiskScoringEngine.java"
-        ],
-        [
-          "Export ownership checks",
-          "backend/src/main/java/com/realestate/duediligence/service/impl/ExportServiceImpl.java"
-        ],
-        [
-          "Race-free notification preferences",
-          "backend/src/main/java/com/realestate/duediligence/service/NotificationPreferenceProvisioner.java"
-        ],
-        [
-          "PostgreSQL concurrency test",
-          "backend/src/test/java/com/realestate/duediligence/integration/NotificationPreferenceConcurrencyIT.java"
-        ]
-      ]
     }
   ],
   "more": [
@@ -633,8 +644,9 @@
       "repo": "T2D-Glucose-Digital-Twin",
       "image": "t2d-forecast",
       "alt": "Glucose Twin patient workspace with a two-hour glucose forecast",
-      "text": "A research prototype built with Nikhil VS: a physiology-based digital twin plus a learned forecaster that predicts type 2 diabetes glucose spikes on a synthetic cohort. Research only; no clinical use.",
-      "meta": "Python · PyTorch · Next.js"
+      "text": "With Nikhil VS: a hybrid glucose forecaster. A physiology model kept in step by an unscented Kalman filter gives the baseline, and a trained temporal-fusion network adds the learned part. On a locked, preregistered evaluation it beat a persistence baseline at 60 minutes. Research only.",
+      "meta": "Python · PyTorch · LightGBM · Next.js",
+      "id": "glucose-twin"
     },
     {
       "title": "Coinpulse",
@@ -643,14 +655,111 @@
       "alt": "Coinpulse dashboard with a Bitcoin candlestick chart and trending coins",
       "text": "A crypto market dashboard on the CoinGecko API, with candlestick charts, search and live price updates. The API key stays on the server.",
       "meta": "Next.js · TypeScript",
-      "live": "https://www.lnkpro.site"
+      "live": "https://www.lnkpro.site",
+      "id": "coinpulse"
     },
     {
       "title": "Ghost Data Still Exists",
       "repo": "orchestrate-october26-work",
       "image": null,
       "text": "My HackerRank Orchestrate (October 2026) entry: an agent that audits whether a user’s data was really deleted, by tracing identifiers through databases, logs, exports and backups.",
-      "meta": "Python · SQLite"
+      "meta": "Python · SQLite",
+      "id": "ghost-data"
     }
-  ]
+  ],
+  "capabilities": [
+    {
+      "title": "Applied ML and evaluation",
+      "text": "Entity resolution scored with macro F0.5, with shared folds and an experiment log so teammates’ results were comparable. A glucose forecaster checked on a locked, preregistered evaluation against a persistence baseline.",
+      "seen": [
+        [
+          "Amazon ML Challenge",
+          "/projects/amazon-ml/"
+        ],
+        [
+          "Glucose Twin",
+          "#glucose-twin"
+        ]
+      ]
+    },
+    {
+      "title": "LLM features with checks",
+      "text": "Models propose and code decides. An LLM drafts reconciliation claims that a rule-based validator checks against the records; extraction models may only return facts in a fixed schema; a property assistant gets the property’s own details in its prompt.",
+      "seen": [
+        [
+          "SettleMate",
+          "/projects/settlemate/"
+        ],
+        [
+          "Buy or Wait",
+          "/projects/buy-or-wait/"
+        ],
+        [
+          "Due Diligence",
+          "/projects/due-diligence/"
+        ]
+      ]
+    },
+    {
+      "title": "Data pipelines and inference",
+      "text": "Candidate generation, pruning and reranking across 17 country shards within Kaggle’s limits; parsing SQL snapshots, logs, JSON and PDFs into one consistent picture of a user’s data.",
+      "seen": [
+        [
+          "Amazon ML Challenge",
+          "/projects/amazon-ml/"
+        ],
+        [
+          "Ghost Data",
+          "#ghost-data"
+        ]
+      ]
+    },
+    {
+      "title": "AI-assisted engineering",
+      "text": "Planning work for coding agents, reviewing their diffs, catching defects and keeping the history honest. Both HackerRank Orchestrate entries were built this way, under rules that require logging every agent session.",
+      "seen": [
+        [
+          "Buy or Wait",
+          "/projects/buy-or-wait/"
+        ],
+        [
+          "Ghost Data",
+          "#ghost-data"
+        ]
+      ]
+    },
+    {
+      "title": "Backend and full-stack systems",
+      "text": "Payment settlement in a single database transaction, JWT-secured APIs, asynchronous report generation and the interfaces on top.",
+      "seen": [
+        [
+          "Gumora",
+          "/projects/gumora/"
+        ],
+        [
+          "Due Diligence",
+          "/projects/due-diligence/"
+        ]
+      ]
+    },
+    {
+      "title": "Testing and reproducibility",
+      "text": "Tests against real MongoDB and PostgreSQL, brute-force reference checks for a search algorithm, and pipelines whose output reproduces byte for byte.",
+      "seen": [
+        [
+          "SettleMate",
+          "/projects/settlemate/"
+        ],
+        [
+          "Gumora",
+          "/projects/gumora/"
+        ],
+        [
+          "Ghost Data",
+          "#ghost-data"
+        ]
+      ]
+    }
+  ],
+  "technologies": "Python, TypeScript, Java · PyTorch, LightGBM, scikit-learn · OpenAI, Gemini and Groq APIs · Spring Boot, Next.js, Express · PostgreSQL, MongoDB, Redis · Docker, GitHub Actions"
 }
